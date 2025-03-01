@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Library - Login: Minecraft: Java Edition</title>
+        <link rel="stylesheet" href="../assets/cronos/css/app-base.css">
+        <link rel="stylesheet" id="css-colors" href="../assets/cronos/css/app-colors-dark.css">
+        <link rel="stylesheet" id="css-menu" href="../assets/cronos/css/app-menu-side.css">
+        <link rel="stylesheet" id="css-card" href="../assets/cronos/css/app-cards.css">
+        <link rel="stylesheet" id="css-shared" href="../assets/application/css/app-shared.css">
+        <link rel="stylesheet" id="css-page" href="../assets/minecraft/css/mje-login.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="../assets/cronos/javascript/app-base.js"></script>
+        <script src="../assets/cronos/javascript/app-menu.js"></script>
+        <script src="../assets/application/javascript/app-shared.js"></script>
+        <script src="../assets/minecraft/javascript/mje-login.js"></script>
+        <script>init();</script>
+    </head>
+    <body>
+        <div class="mje-background">
+            <div class="mje-background2"></div>
+        </div>
+        <div class="mje-content">
+            <div class="mje-login-widget">
+                <div class="mje-microsoft-login" id="mje-ms-login-button">
+                    <i class='bx bxl-microsoft'></i>
+                    <h3>Login with Microsoft</h3>
+                </div>
+                <div id="mje-back-to-select" onclick="backToSelect();">
+                    <i class='bx bxs-door-open'></i>
+                    <h3>Back to select</h3>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        addEventListener("DOMContentLoaded", () => {
+            initLogin();
+        });
+    </script>
+</html>

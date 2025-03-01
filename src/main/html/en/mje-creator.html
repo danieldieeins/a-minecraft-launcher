@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Library - Minecraft: Java Edition</title>
+        <link rel="stylesheet" href="../assets/cronos/css/app-base.css">
+        <link rel="stylesheet" id="css-colors" href="../assets/cronos/css/app-colors-dark.css">
+        <link rel="stylesheet" id="css-menu" href="../assets/cronos/css/app-menu-side.css">
+        <link rel="stylesheet" id="css-card" href="../assets/cronos/css/app-cards.css">
+        <link rel="stylesheet" id="css-shared" href="../assets/application/css/app-shared.css">
+        <link rel="stylesheet" id="css-page" href="../assets/minecraft/css/mje-instance-creator.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="../assets/cronos/javascript/app-base.js"></script>
+        <script src="../assets/cronos/javascript/app-menu.js"></script>
+        <script src="../assets/application/javascript/app-shared.js"></script>
+        <script src="../assets/minecraft/javascript/mje-instance-creator.js"></script>
+        <script>connector("java.init.creator"); connector("java.sync.creator"); init();</script>
+    </head>
+    <body>
+    <div class="card button create" onclick="createInstance();">
+        <h3>Create <i class='bx bxs-add-to-queue'></i></h3>
+    </div>
+    <div class="mje-main flex">
+        <div class="menu">
+
+        </div>
+        <div class="flex">
+            <div class="mje-main-menu">
+                <div class="card card-disabled">
+                    <h3>Create instance</h3>
+                    <h5>Minecraft: Java Edition</h5>
+                </div>
+                <div onclick="connector('java.sync.library');" class="card button danger">
+                    <h3>Cancel <i class='bx bxs-exit'></i></h3>
+                </div>
+                <div id="mje-discover-modpacks" onclick="connector('java.sync.search')" class="card button highlight">
+                    <h3>Discover <i id="mje-discover-modpacks-i" class='bx bx-world'></i></h3>
+                </div><script>initHover();</script>
+                <!--div onclick="" class="card button">
+                    <h3>Instanz importieren <i class='bx bxs-folder-plus'></i></h3>
+                </div-->
+            </div>
+            <div class="mje-main-content">
+                <div class="card card-disabled">
+                    <h2>Instance creator</h2>
+                    <form id="mje-instance-creator">
+                        <div class="mje-creator-preview">
+                            <div class="mje-preview-image">
+                                <img alt="instanz bild" src="../assets/application/images/icons/app.png">
+                                <i class='bx bx-edit'></i>
+                            </div>
+                            <div class="mje-preview-details">
+                                <div class="flex">
+                                    <div>
+                                        <h2><label><input type="text" id="mje-creator-name" placeholder="Instance name*" required></label></h2>
+                                        <h3><label><textarea id="mje-creator-description" placeholder="Instance description" required></textarea></label></h3>
+                                    </div>
+                                    <div class="row2">
+                                        <h3><label><input type="text" id="mje-creator-version" placeholder="v1.0.0"></label></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mje-creator-settings">
+                            <h2>Settings</h2>
+                            <h4>Game settings</h4>
+                            <h3>
+                                Game type
+                                <label>
+                                    <select id="mje-settings-game" onchange="initSelects(true);">
+                                        <option value="vanilla">Vanilla</option>
+                                        <option value="experimental">Experimental</option>
+                                        <option value="fabric">Fabric (Modloader)</option>
+                                        <option value="forge">Forge (Modloader)</option>
+                                        <option value="neoforge">NeoForge (Modloader)</option>
+                                        <option value="quilt">Quilt (Modloader)</option>
+                                    </select>
+                                </label>
+                            </h3>
+                            <h3>
+                                Game version
+                                <label>
+                                    <select id="mje-settings-game-version" onchange="initSelects(false);">
+                                    </select>
+                                </label>
+                            </h3>
+                            <h3>
+                                Modloader version
+                                <label>
+                                    <select id="mje-settings-modloader-version">
+                                    </select>
+                                </label>
+                            </h3>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    <script>
+        addEventListener("DOMContentLoaded", function() {
+            initSelects(true);
+        });
+    </script>
+</html>

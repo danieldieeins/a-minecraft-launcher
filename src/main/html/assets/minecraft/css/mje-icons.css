@@ -1,0 +1,7 @@
+.svg-modrinth {
+    background: url('../../application/images/svg/logo-modrinth.svg') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}

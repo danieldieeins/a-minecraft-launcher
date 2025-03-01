@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Arbeitsspeicherfenster</title>
+        <link rel="stylesheet" href="../assets/cronos/css/app-base.css">
+        <link rel="stylesheet" id="css-colors" href="../assets/cronos/css/app-colors-dark.css">
+        <link rel="stylesheet" id="css-card" href="../assets/cronos/css/app-cards.css">
+        <link rel="stylesheet" id="css-shared" href="../assets/application/css/app-shared.css">
+        <link rel="stylesheet" id="css-page" href="../assets/minecraft/css/mje-memory.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="../assets/cronos/javascript/app-base.js"></script>
+        <script src="../assets/application/javascript/app-shared.js"></script>
+        <script src="../assets/minecraft/javascript/mje-memory.js"></script>
+        <script>init();</script>
+        <style>
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            p {
+                input {
+                    color: var(--highlight);
+                }
+            }
+
+            a.button {
+                border-radius: 0.75rem;
+                background: var(--border) !important;
+                border: 2px solid var(--border2) !important;
+                padding: 0.5rem !important;
+                color: var(--foreground2) !important;
+            }
+
+            a.button:hover {
+                cursor: pointer;
+                color: var(--highlight) !important;
+                border-color: var(--accent) !important;
+                animation: wiggle 2s infinite;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content flex" style="background: var(--background); height: 100%; width: 100%; padding: 0; margin: 0; position: absolute; justify-content: center; align-items: center">
+            <div class="card flex" style="flex-direction: column; text-align: center; align-items: center; justify-content: center;">
+                <h4>Arbeitsspeicher einstellen (RAM)</h4>
+                <div class="line"></div>
+                <div class="flex">
+                    <p id="min" style="padding-right: 1rem">0mb</p>
+                    <label>
+                        <input id="slider" type="range" style="margin-top: 0.25rem" onchange="document.getElementById('value').value = this.value;">
+                    </label>
+                    <p id="max" style="padding-left: 1rem;">0mb</p>
+                </div>
+                <div class="line"></div>
+                <p>Du vergibst <label><input onchange="this.style.width = this.value.toString().length * 9 + 'px';" style="font-size: 1rem;" type="number" id="value"></label>mb an Arbeitsspeicher.</p>
+                <br>
+                <a class="button" id="confirm-button">Bestätigen</a>
+            </div>
+        </div>
+        <script>
+            addEventListener("DOMContentLoaded", () => {
+                initMemory();
+            });
+        </script>
+    </body>
+</html>
