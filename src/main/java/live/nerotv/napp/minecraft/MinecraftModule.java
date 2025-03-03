@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class MinecraftModule extends ApplicationModule {
 
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.5", new String[]{"nerotvlive"}, new JsonObject());
+        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.7", new String[]{"nerotvlive"}, new JsonObject());
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MinecraftModule extends ApplicationModule {
         BodyPage discoverPage = new BodyPage();
         discoverPage.setActive(true);
         discoverPage.setId("a-minecraft-module");
-        discoverPage.setTitle("a Minecraft Module");
+        discoverPage.setTitle("Minecraft");
         discoverPage.addElement(descriptionRow);
 
         try {
@@ -54,7 +54,7 @@ public class MinecraftModule extends ApplicationModule {
     private void initSearch() {
         try {
             ZyndexSearch nexSearch = new ZyndexSearch(DiscoverAPI.getNEX());
-            nexSearch.setId("a-minecraft-module@official.nex",true);
+            nexSearch.setId("a-minecraft-module@official_nex@instances",true);
             nexSearch.setName("Official Minecraft instances",true);
             DiscoverAPI.getDiscover().getSearch().addSearchSource(nexSearch);
         } catch (Exception e) {
