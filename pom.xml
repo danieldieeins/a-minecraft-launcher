@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>live.nerotv.nexus</groupId>
+    <artifactId>app-minecraft-module</artifactId>
+    <version>3.0.0-alpha.5</version>
+    <name>a Minecraft Module</name>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>nerofy-releases</id>
+            <name>Nerofy Network Maven repository</name>
+            <url>https://maven.nrfy.net/releases</url>
+        </repository>
+        <repository>
+            <id>nerofy-snapshots</id>
+            <name>Nerofy Network Maven repository</name>
+            <url>https://maven.nrfy.net/snapshots</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>nerofy-snapshots</id>
+            <name>Nerofy Network Maven repository</name>
+            <url>https://maven.nrfy.net/snapshots</url>
+        </repository>
+    </distributionManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zyneonstudios.nexus</groupId>
+            <artifactId>app-shared-api</artifactId>
+            <version>2.4.0-alpha.17</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zyneonstudios.nexus</groupId>
+            <artifactId>app-discover-api</artifactId>
+            <version>2.4.0-alpha.17</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zyneonstudios.nexus</groupId>
+            <artifactId>app-library-api</artifactId>
+            <version>2.4.0-alpha.17</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zyneonstudios.nexus</groupId>
+            <artifactId>app-modules-api</artifactId>
+            <version>2.4.0-alpha.17</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.zyneonstudios.nexus.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>21</source>
+                    <release>21</release>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.zyneonstudios.nexus.Main</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
