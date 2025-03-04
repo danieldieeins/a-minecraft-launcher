@@ -24,7 +24,7 @@ public class MinecraftModule extends ApplicationModule {
     private final JsonStorage zyndex = new JsonStorage("modules/a-minecraft-module/zyndex.json");
 
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.9", new String[]{"nerotvlive"}, new JsonObject());
+        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.10", new String[]{"nerotvlive"}, new JsonObject());
         new File("modules/a-minecraft-module/").mkdirs();
         config = new JsonStorage("modules/a-minecraft-module/config.json");
         library = new ZyndexLibrary(zyndex);
@@ -48,7 +48,7 @@ public class MinecraftModule extends ApplicationModule {
         zyndex.set("owner","a-minecraft-module");
         zyndex.ensure("instances",new JsonArray());
         zyndex.ensure("modules",new JsonArray());
-        library.setName("Minecraft");
+        library.setName("Minecraft: Java Edition");
         LibraryAPI.addLibrary(library);
     }
 
