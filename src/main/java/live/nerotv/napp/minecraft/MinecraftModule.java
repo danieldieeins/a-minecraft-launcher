@@ -1,18 +1,33 @@
 package live.nerotv.napp.minecraft;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.zyneonstudios.nexus.application.api.DiscoverAPI;
+import com.zyneonstudios.nexus.application.api.LibraryAPI;
 import com.zyneonstudios.nexus.application.api.discover.search.zyndex.ZyndexSearch;
+import com.zyneonstudios.nexus.application.api.library.zyndex.ZyndexLibrary;
 import com.zyneonstudios.nexus.application.api.modules.ApplicationModule;
-import com.zyneonstudios.nexus.application.api.shared.body.elements.*;
+import com.zyneonstudios.nexus.application.api.shared.body.elements.BodyImage;
+import com.zyneonstudios.nexus.application.api.shared.body.elements.BodyPage;
+import com.zyneonstudios.nexus.application.api.shared.body.elements.BodyRow;
+import com.zyneonstudios.nexus.application.api.shared.body.elements.BodyTextCard;
 import com.zyneonstudios.nexus.desktop.NexusDesktop;
+import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
 
+import java.io.File;
 import java.util.Arrays;
 
 public class MinecraftModule extends ApplicationModule {
 
+    private final ZyndexLibrary library;
+    private final JsonStorage config;
+    private final JsonStorage zyndex = new JsonStorage("modules/a-minecraft-module/zyndex.json");
+
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.7", new String[]{"nerotvlive"}, new JsonObject());
+        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.9", new String[]{"nerotvlive"}, new JsonObject());
+        new File("modules/a-minecraft-module/").mkdirs();
+        config = new JsonStorage("modules/a-minecraft-module/config.json");
+        library = new ZyndexLibrary(zyndex);
     }
 
     @Override
@@ -24,6 +39,17 @@ public class MinecraftModule extends ApplicationModule {
     public void onEnable() {
         NexusDesktop.getLogger().log("Enabling "+getName()+" ("+getId()+") v"+getVersion()+" by "+ Arrays.toString(getAuthors()) +"...");
         initDiscover();
+        initLibrary();
+    }
+
+    private void initLibrary() {
+        zyndex.set("name","official_local");
+        zyndex.set("url","file://"+zyndex.getJsonFile().getAbsoluteFile().toString().replace("\\","/"));
+        zyndex.set("owner","a-minecraft-module");
+        zyndex.ensure("instances",new JsonArray());
+        zyndex.ensure("modules",new JsonArray());
+        library.setName("Minecraft");
+        LibraryAPI.addLibrary(library);
     }
 
     private void initDiscover() {
@@ -66,5 +92,13 @@ public class MinecraftModule extends ApplicationModule {
     @Override
     public void onDisable() {
         NexusDesktop.getLogger().log("Disabling "+getName()+" ("+getId()+") v"+getVersion()+" by "+ Arrays.toString(getAuthors()) +"...");
+    }
+
+    public JsonStorage getConfig() {
+        return config;
+    }
+
+    public ZyndexLibrary getLibrary() {
+        return library;
     }
 }
