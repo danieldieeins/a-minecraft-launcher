@@ -17,6 +17,7 @@ import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.UUID;
 
 public class MinecraftModule extends ApplicationModule {
 
@@ -25,7 +26,7 @@ public class MinecraftModule extends ApplicationModule {
     private final JsonStorage zyndex;
 
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.13", new String[]{"nerotvlive"}, new JsonObject());
+        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.16", new String[]{"nerotvlive"}, new JsonObject());
         new File(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/").mkdirs();
         config = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/config.json");
         zyndex = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/zyndex.json");
@@ -50,9 +51,9 @@ public class MinecraftModule extends ApplicationModule {
         zyndex.ensure("instances",new JsonArray());
         zyndex.ensure("modules",new JsonArray());
 
-        library = new ZyndexLibrary(zyndex);
+        library = new ZyndexLibrary(zyndex,"a-minecraft-module");
         library.setName("Minecraft: Java Edition");
-        LibraryAPI.addLibrary(library);
+        LibraryAPI.addLibrary(UUID.randomUUID()+toString(),library);
     }
 
     private void initDiscover() {
@@ -84,7 +85,7 @@ public class MinecraftModule extends ApplicationModule {
         try {
             ZyndexSearch nexSearch = new ZyndexSearch(DiscoverAPI.getNEX());
             nexSearch.setId("a-minecraft-module@official_nex@instances",true);
-            nexSearch.setName("Official Minecraft instances",true);
+            nexSearch.setName("Minecraft: Java Edition modpacks",true);
             DiscoverAPI.getDiscover().getSearch().addSearchSource(nexSearch);
         } catch (Exception e) {
             NexusDesktop.getLogger().err("Couldn't load official Zyndex \"NEX\": "+e.getMessage());

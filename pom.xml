@@ -6,7 +6,7 @@
 
     <groupId>live.nerotv.nexus</groupId>
     <artifactId>app-minecraft-module</artifactId>
-    <version>3.0.0-alpha.13</version>
+    <version>3.0.0-alpha.16</version>
     <name>a Minecraft Module</name>
 
     <properties>
@@ -39,25 +39,25 @@
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>app-shared-api</artifactId>
-            <version>2.4.0-alpha.17</version>
+            <version>2.4.0-alpha.21</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>app-discover-api</artifactId>
-            <version>2.4.0-alpha.17</version>
+            <version>2.4.0-alpha.21</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>app-library-api</artifactId>
-            <version>2.4.0-alpha.17</version>
+            <version>2.4.0-alpha.21</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>app-modules-api</artifactId>
-            <version>2.4.0-alpha.17</version>
+            <version>2.4.0-alpha.21</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
