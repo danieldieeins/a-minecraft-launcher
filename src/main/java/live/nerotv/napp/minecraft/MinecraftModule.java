@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.zyneonstudios.nexus.application.api.DiscoverAPI;
 import com.zyneonstudios.nexus.application.api.LibraryAPI;
+import com.zyneonstudios.nexus.application.api.SharedAPI;
 import com.zyneonstudios.nexus.application.api.discover.search.zyndex.ZyndexSearch;
 import com.zyneonstudios.nexus.application.api.library.zyndex.ZyndexLibrary;
 import com.zyneonstudios.nexus.application.api.modules.ApplicationModule;
@@ -19,15 +20,15 @@ import java.util.Arrays;
 
 public class MinecraftModule extends ApplicationModule {
 
-    private final ZyndexLibrary library;
+    private ZyndexLibrary library;
     private final JsonStorage config;
-    private final JsonStorage zyndex = new JsonStorage("modules/a-minecraft-module/zyndex.json");
+    private final JsonStorage zyndex;
 
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.10", new String[]{"nerotvlive"}, new JsonObject());
-        new File("modules/a-minecraft-module/").mkdirs();
-        config = new JsonStorage("modules/a-minecraft-module/config.json");
-        library = new ZyndexLibrary(zyndex);
+        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.13", new String[]{"nerotvlive"}, new JsonObject());
+        new File(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/").mkdirs();
+        config = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/config.json");
+        zyndex = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/zyndex.json");
     }
 
     @Override
@@ -48,6 +49,8 @@ public class MinecraftModule extends ApplicationModule {
         zyndex.set("owner","a-minecraft-module");
         zyndex.ensure("instances",new JsonArray());
         zyndex.ensure("modules",new JsonArray());
+
+        library = new ZyndexLibrary(zyndex);
         library.setName("Minecraft: Java Edition");
         LibraryAPI.addLibrary(library);
     }
