@@ -3,8 +3,10 @@ package live.nerotv.napp.minecraft;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.zyneonstudios.nexus.application.api.DiscoverAPI;
+import com.zyneonstudios.nexus.application.api.LibraryAPI;
 import com.zyneonstudios.nexus.application.api.SharedAPI;
 import com.zyneonstudios.nexus.application.api.discover.search.zyndex.ZyndexSearch;
+import com.zyneonstudios.nexus.application.api.library.events.LibraryPreLoadEvent;
 import com.zyneonstudios.nexus.application.api.modules.ApplicationModule;
 import com.zyneonstudios.nexus.desktop.NexusDesktop;
 import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
@@ -20,7 +22,7 @@ public class MinecraftModule extends ApplicationModule {
     private final JsonStorage zyndex;
 
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.18", new String[]{"nerotvlive"}, new JsonObject());
+        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.19", new String[]{"nerotvlive"}, new JsonObject());
         new File(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/").mkdirs();
         config = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/config.json");
         zyndex = new JsonStorage(SharedAPI.getWorkingDirectory() + "/modules/a-minecraft-module/java-instances.json");
@@ -44,8 +46,18 @@ public class MinecraftModule extends ApplicationModule {
         zyndex.set("owner","a-minecraft-module");
         zyndex.set("modules",new JsonArray());
         zyndex.ensure("instances",new JsonArray());
-
         new JavaLibrary(zyndex);
+
+        LibraryAPI.registerEvent(new LibraryPreLoadEvent(JavaLibrary.getInstance()) {
+            @Override
+            public boolean beforeLoad() {
+                if(getLibrary()!=null) {
+
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void initDiscover() {
