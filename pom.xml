@@ -6,7 +6,7 @@
 
     <groupId>live.nerotv.nexus</groupId>
     <artifactId>app-minecraft-module</artifactId>
-    <version>3.0.0-alpha.16</version>
+    <version>3.0.0-alpha.18</version>
     <name>a Minecraft Module</name>
 
     <properties>

@@ -3,33 +3,27 @@ package live.nerotv.napp.minecraft;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.zyneonstudios.nexus.application.api.DiscoverAPI;
-import com.zyneonstudios.nexus.application.api.LibraryAPI;
 import com.zyneonstudios.nexus.application.api.SharedAPI;
 import com.zyneonstudios.nexus.application.api.discover.search.zyndex.ZyndexSearch;
-import com.zyneonstudios.nexus.application.api.library.zyndex.ZyndexLibrary;
 import com.zyneonstudios.nexus.application.api.modules.ApplicationModule;
-import com.zyneonstudios.nexus.application.api.shared.body.elements.BodyImage;
-import com.zyneonstudios.nexus.application.api.shared.body.elements.BodyPage;
-import com.zyneonstudios.nexus.application.api.shared.body.elements.BodyRow;
-import com.zyneonstudios.nexus.application.api.shared.body.elements.BodyTextCard;
 import com.zyneonstudios.nexus.desktop.NexusDesktop;
 import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
+import live.nerotv.napp.minecraft.discover.MinecraftDiscoverPage;
+import live.nerotv.napp.minecraft.java.library.JavaLibrary;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.UUID;
 
 public class MinecraftModule extends ApplicationModule {
 
-    private ZyndexLibrary library;
     private final JsonStorage config;
     private final JsonStorage zyndex;
 
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.16", new String[]{"nerotvlive"}, new JsonObject());
+        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.18", new String[]{"nerotvlive"}, new JsonObject());
         new File(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/").mkdirs();
         config = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/config.json");
-        zyndex = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/zyndex.json");
+        zyndex = new JsonStorage(SharedAPI.getWorkingDirectory() + "/modules/a-minecraft-module/java-instances.json");
     }
 
     @Override
@@ -48,35 +42,15 @@ public class MinecraftModule extends ApplicationModule {
         zyndex.set("name","official_local");
         zyndex.set("url","file://"+zyndex.getJsonFile().getAbsoluteFile().toString().replace("\\","/"));
         zyndex.set("owner","a-minecraft-module");
+        zyndex.set("modules",new JsonArray());
         zyndex.ensure("instances",new JsonArray());
-        zyndex.ensure("modules",new JsonArray());
 
-        library = new ZyndexLibrary(zyndex,"a-minecraft-module");
-        library.setName("Minecraft: Java Edition");
-        LibraryAPI.addLibrary(UUID.randomUUID()+toString(),library);
+        new JavaLibrary(zyndex);
     }
 
     private void initDiscover() {
-        BodyImage descriptionImage = new BodyImage();
-        descriptionImage.setAlt("NEXUS App logo");
-        descriptionImage.setSrc("../assets/application/images/logos/app/normal.png");
-
-        BodyTextCard descriptionCard = new BodyTextCard();
-        descriptionCard.setTitle("About \""+getName()+"\":");
-        descriptionCard.setText(getName()+" ("+getId()+") v"+getVersion()+" by "+ Arrays.toString(getAuthors()) +" is a open source minecraft launching and management module.");
-
-        BodyRow descriptionRow = new BodyRow();
-        descriptionRow.addElement(descriptionImage);
-        descriptionRow.addElement(descriptionCard);
-
-        BodyPage discoverPage = new BodyPage();
-        discoverPage.setActive(true);
-        discoverPage.setId("a-minecraft-module");
-        discoverPage.setTitle("Minecraft");
-        discoverPage.addElement(descriptionRow);
-
         try {
-            DiscoverAPI.getDiscover().addPage(discoverPage);
+            DiscoverAPI.getDiscover().addPage(new MinecraftDiscoverPage());
         } catch (Exception ignore) {}
         initSearch();
     }
@@ -102,7 +76,7 @@ public class MinecraftModule extends ApplicationModule {
         return config;
     }
 
-    public ZyndexLibrary getLibrary() {
-        return library;
+    public JavaLibrary getLibrary() {
+        return JavaLibrary.getInstance();
     }
 }
