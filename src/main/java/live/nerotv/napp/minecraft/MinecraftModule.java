@@ -18,11 +18,11 @@ import java.util.Arrays;
 
 public class MinecraftModule extends ApplicationModule {
 
-    private final JsonStorage config;
+    private static JsonStorage config;
     private final JsonStorage zyndex;
 
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.19", new String[]{"nerotvlive"}, new JsonObject());
+        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.21", new String[]{"nerotvlive"}, new JsonObject());
         new File(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/").mkdirs();
         config = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/config.json");
         zyndex = new JsonStorage(SharedAPI.getWorkingDirectory() + "/modules/a-minecraft-module/java-instances.json");
@@ -84,11 +84,11 @@ public class MinecraftModule extends ApplicationModule {
         NexusDesktop.getLogger().log("Disabling "+getName()+" ("+getId()+") v"+getVersion()+" by "+ Arrays.toString(getAuthors()) +"...");
     }
 
-    public JsonStorage getConfig() {
+    public static JsonStorage getConfig() {
         return config;
     }
 
-    public JavaLibrary getLibrary() {
+    public static JavaLibrary getLibrary() {
         return JavaLibrary.getInstance();
     }
 }
