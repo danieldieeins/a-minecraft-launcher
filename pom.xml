@@ -6,12 +6,13 @@
 
     <groupId>live.nerotv.nexus</groupId>
     <artifactId>app-minecraft-module</artifactId>
-    <version>3.0.0-alpha.21</version>
+    <version>3.0.0-alpha.28</version>
     <name>a Minecraft Module</name>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <api.version>2.4.0-beta.1</api.version>
     </properties>
 
     <repositories>
@@ -39,25 +40,25 @@
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>app-shared-api</artifactId>
-            <version>2.4.0-alpha.24</version>
+            <version>${api.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>app-discover-api</artifactId>
-            <version>2.4.0-alpha.24</version>
+            <version>${api.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>app-library-api</artifactId>
-            <version>2.4.0-alpha.24</version>
+            <version>${api.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>app-modules-api</artifactId>
-            <version>2.4.0-alpha.24</version>
+            <version>${api.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

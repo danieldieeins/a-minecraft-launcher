@@ -6,6 +6,9 @@ import com.zyneonstudios.nexus.application.api.DiscoverAPI;
 import com.zyneonstudios.nexus.application.api.LibraryAPI;
 import com.zyneonstudios.nexus.application.api.SharedAPI;
 import com.zyneonstudios.nexus.application.api.discover.search.zyndex.ZyndexSearch;
+import com.zyneonstudios.nexus.application.api.library.events.LibraryEvent;
+import com.zyneonstudios.nexus.application.api.library.events.LibraryEventType;
+import com.zyneonstudios.nexus.application.api.library.events.LibraryLoadEvent;
 import com.zyneonstudios.nexus.application.api.library.events.LibraryPreLoadEvent;
 import com.zyneonstudios.nexus.application.api.modules.ApplicationModule;
 import com.zyneonstudios.nexus.desktop.NexusDesktop;
@@ -22,7 +25,7 @@ public class MinecraftModule extends ApplicationModule {
     private final JsonStorage zyndex;
 
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.21", new String[]{"nerotvlive"}, new JsonObject());
+        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.28", new String[]{"nerotvlive"}, new JsonObject());
         new File(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/").mkdirs();
         config = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/config.json");
         zyndex = new JsonStorage(SharedAPI.getWorkingDirectory() + "/modules/a-minecraft-module/java-instances.json");
@@ -58,6 +61,10 @@ public class MinecraftModule extends ApplicationModule {
                 return false;
             }
         });
+
+        if(SharedAPI.getFrameUrl().contains("library.html")) {
+            SharedAPI.openAppPage(SharedAPI.AppPage.LIBRARY);
+        }
     }
 
     private void initDiscover() {

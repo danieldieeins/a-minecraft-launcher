@@ -21,5 +21,6 @@ public class MinecraftDiscoverPage extends BodyPage {
                 return true;
             }
         });
+        addElement(openLibrary);
     }
 }

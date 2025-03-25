@@ -3,6 +3,7 @@ package live.nerotv.napp.minecraft.java.library;
 import com.zyneonstudios.nexus.application.api.LibraryAPI;
 import com.zyneonstudios.nexus.application.api.library.LibraryInstance;
 import com.zyneonstudios.nexus.application.api.library.zyndex.ZyndexLibrary;
+import com.zyneonstudios.nexus.desktop.NexusDesktop;
 import com.zyneonstudios.nexus.instance.ReadableZynstance;
 import com.zyneonstudios.nexus.modules.ReadableModule;
 import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
@@ -35,11 +36,19 @@ public class JavaLibrary extends ZyndexLibrary {
         }
     }
 
+    public boolean addJavaInstance(JavaInstance instance) {
+        return addJavaInstance(instance,false);
+    }
+
     public boolean addJavaInstance(JavaInstance instance, boolean overwrite) {
-        if(overwrite||!instances.containsKey(instance.getId())) {
-            instances.put(instance.getId(), instance);
-            syncZyndex();
-            return true;
+        try {
+            if (overwrite || !instances.containsKey(instance.getId())) {
+                instances.put(instance.getId(), instance);
+                syncZyndex();
+                return true;
+            }
+        } catch (Exception e) {
+            NexusDesktop.getLogger().err("[MINECRAFT] Couldn't load JavaInstance: "+e.getMessage());
         }
         return false;
     }
@@ -77,7 +86,11 @@ public class JavaLibrary extends ZyndexLibrary {
     }
 
     private void syncZyndex() {
-        getJson().set("instances",getJavaInstances());
+        ArrayList<String> instances = new ArrayList<>();
+        for(JavaInstance instance:getJavaInstances()) {
+            instances.add(instance.getLocation());
+        }
+        getJson().set("instances",instances);
     }
 
     @Override
