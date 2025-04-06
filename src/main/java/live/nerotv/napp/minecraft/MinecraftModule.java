@@ -1,45 +1,63 @@
 package live.nerotv.napp.minecraft;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.zyneonstudios.nexus.application.api.DiscoverAPI;
-import com.zyneonstudios.nexus.application.api.LibraryAPI;
-import com.zyneonstudios.nexus.application.api.SharedAPI;
-import com.zyneonstudios.nexus.application.api.discover.search.zyndex.ZyndexSearch;
-import com.zyneonstudios.nexus.application.api.library.events.LibraryEvent;
-import com.zyneonstudios.nexus.application.api.library.events.LibraryEventType;
-import com.zyneonstudios.nexus.application.api.library.events.LibraryLoadEvent;
-import com.zyneonstudios.nexus.application.api.library.events.LibraryPreLoadEvent;
-import com.zyneonstudios.nexus.application.api.modules.ApplicationModule;
-import com.zyneonstudios.nexus.desktop.NexusDesktop;
+import com.zyneonstudios.nexus.application.Main;
+import com.zyneonstudios.nexus.application.modules.NexusModule;
 import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
-import live.nerotv.napp.minecraft.discover.MinecraftDiscoverPage;
-import live.nerotv.napp.minecraft.java.library.JavaLibrary;
 
 import java.io.File;
 import java.util.Arrays;
 
-public class MinecraftModule extends ApplicationModule {
+public class MinecraftModule extends NexusModule {
 
     private static JsonStorage config;
     private final JsonStorage zyndex;
 
+    private final String id = "a-minecraft-module";
+    private final String name = "a Minecraft module";
+    private final String version = "3.0.0-alpha";
+    private final String owner = "nerotvlive";
+    private final String[] contributors = new String[0];
+
     public MinecraftModule() {
-        super("a-minecraft-module", "a Minecraft Module", "3.0.0-alpha.28", new String[]{"nerotvlive"}, new JsonObject());
-        new File(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/").mkdirs();
-        config = new JsonStorage(SharedAPI.getWorkingDirectory()+"/modules/a-minecraft-module/config.json");
-        zyndex = new JsonStorage(SharedAPI.getWorkingDirectory() + "/modules/a-minecraft-module/java-instances.json");
+        new File(Main.getApplication().getWorkingPath()+"/modules/a-minecraft-module/").mkdirs();
+        config = new JsonStorage(Main.getApplication().getWorkingPath()+"/modules/a-minecraft-module/config.json");
+        zyndex = new JsonStorage(Main.getApplication().getWorkingPath() + "/modules/a-minecraft-module/java-instances.json");
+    }
+
+    @Override
+    public final String getModuleId() {
+        return id;
+    }
+
+    @Override
+    public final String getModuleName() {
+        return name;
+    }
+
+    @Override
+    public final String getModuleVersion() {
+        return version;
+    }
+
+    @Override
+    public final String getModuleOwner() {
+        return owner;
+    }
+
+    @Override
+    public final String[] getModuleContributors() {
+        return contributors;
     }
 
     @Override
     public void onLoad() {
-        NexusDesktop.getLogger().log("Loading "+getName()+" ("+getId()+") v"+getVersion()+" by "+ Arrays.toString(getAuthors()) +"...");
+        Main.getLogger().log("Loading "+getModuleName()+" ("+getModuleId()+") v"+getModuleVersion()+" by "+ Arrays.toString(getModuleAuthors()) +"...");
     }
 
     @Override
     public void onEnable() {
-        NexusDesktop.getLogger().log("Enabling "+getName()+" ("+getId()+") v"+getVersion()+" by "+ Arrays.toString(getAuthors()) +"...");
-        initDiscover();
+        Main.getLogger().log("Enabling "+getModuleName()+" ("+getModuleId()+") v"+getModuleVersion()+" by "+ Arrays.toString(getModuleAuthors()) +"...");
         initLibrary();
     }
 
@@ -49,53 +67,14 @@ public class MinecraftModule extends ApplicationModule {
         zyndex.set("owner","a-minecraft-module");
         zyndex.set("modules",new JsonArray());
         zyndex.ensure("instances",new JsonArray());
-        new JavaLibrary(zyndex);
-
-        LibraryAPI.registerEvent(new LibraryPreLoadEvent(JavaLibrary.getInstance()) {
-            @Override
-            public boolean beforeLoad() {
-                if(getLibrary()!=null) {
-
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        if(SharedAPI.getFrameUrl().contains("library.html")) {
-            SharedAPI.openAppPage(SharedAPI.AppPage.LIBRARY);
-        }
-    }
-
-    private void initDiscover() {
-        try {
-            DiscoverAPI.getDiscover().addPage(new MinecraftDiscoverPage());
-        } catch (Exception ignore) {}
-        initSearch();
-    }
-
-    private void initSearch() {
-        try {
-            ZyndexSearch nexSearch = new ZyndexSearch(DiscoverAPI.getNEX());
-            nexSearch.setId("a-minecraft-module@official_nex@instances",true);
-            nexSearch.setName("Minecraft: Java Edition modpacks",true);
-            DiscoverAPI.getDiscover().getSearch().addSearchSource(nexSearch);
-        } catch (Exception e) {
-            NexusDesktop.getLogger().err("Couldn't load official Zyndex \"NEX\": "+e.getMessage());
-            NexusDesktop.getLogger().err("Disabled module search...");
-        }
     }
 
     @Override
     public void onDisable() {
-        NexusDesktop.getLogger().log("Disabling "+getName()+" ("+getId()+") v"+getVersion()+" by "+ Arrays.toString(getAuthors()) +"...");
+        Main.getLogger().log("Disabling "+getModuleName()+" ("+getModuleId()+") v"+getModuleVersion()+" by "+ Arrays.toString(getModuleAuthors()) +"...");
     }
 
     public static JsonStorage getConfig() {
         return config;
-    }
-
-    public static JavaLibrary getLibrary() {
-        return JavaLibrary.getInstance();
     }
 }

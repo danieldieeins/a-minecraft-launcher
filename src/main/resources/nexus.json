@@ -1,0 +1,16 @@
+{
+  "modules": [
+    {
+      "authors": [
+        "nerotvlive"
+      ],
+      "main": "live.nerotv.napp.minecraft.MinecraftModule",
+      "id": "a-minecraft-module",
+      "name": "a Minecraft module",
+      "version": "${project.version}",
+      "app": {
+        "min": "3.0.0-alpha.7"
+      }
+    }
+  ]
+}
