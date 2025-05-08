@@ -1,8 +1,0 @@
-{
-  "modules": [
-    {
-      "main": "live.nerotv.napp.minecraft.MinecraftModule",
-      "id": "${project.artifactId}"
-    }
-  ]
-}

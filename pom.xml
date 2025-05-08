@@ -4,102 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>live.nerotv.nexus</groupId>
-    <artifactId>a-minecraft-module</artifactId>
-    <version>3.0.0-alpha.31</version>
-    <name>a Minecraft Module</name>
-
-    <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <groupId>com.zyneonstudios</groupId>
+    <artifactId>application-parent</artifactId>
+    <version>2024.10-old.1</version>
+    <packaging>pom</packaging>
 
     <repositories>
         <repository>
-            <id>nerofy-releases</id>
-            <name>Nerofy Network Maven repository</name>
-            <url>https://maven.nrfy.net/releases</url>
-        </repository>
-        <repository>
-            <id>nerofy-snapshots</id>
-            <name>Nerofy Network Maven repository</name>
-            <url>https://maven.nrfy.net/snapshots</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/zyneonstudios/zyneon-maven</url>
         </repository>
     </repositories>
 
-    <distributionManagement>
-        <repository>
-            <id>nerofy-snapshots</id>
-            <name>Nerofy Network Maven repository</name>
-            <url>https://maven.nrfy.net/snapshots</url>
-        </repository>
-    </distributionManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.zyneonstudios.nexus</groupId>
-            <artifactId>nexus-app</artifactId>
-            <version>3.0.0-alpha.10</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>21</source>
-                    <release>21</release>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>zip</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
+    <modules>
+        <module>application-main</module>
+    </modules>
 </project>
