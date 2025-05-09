@@ -1,0 +1,188 @@
+/*Stuff*/
+.content .card#updates-card {
+    display: none;
+}
+
+.content {
+    border-top-left-radius: 1.5rem !important;
+    background: var(--background);
+}
+
+#experimental-notice {
+    top: 7rem;
+    left: 3.5rem;
+    height:6rem;
+    padding-right: 1rem;
+    width: calc(100% - 8.1rem) !important;
+    z-index: 999;
+    opacity: 90%;
+    color: var(--color);
+    max-height: 6rem !important;
+    max-width: calc(100% - 8.1rem) !important;
+    border: 2px solid rgba(107, 33, 255, 0.31);
+    border-radius: 1rem;
+    position: absolute;
+    display: none;
+}
+
+#experimental-notice div {
+    max-height: 6rem !important;
+    overflow: hidden !important;
+    overflow-y: scroll !important;
+}
+
+#experimental-notice * {
+    user-select: text !important;
+    white-space: normal !important;
+}
+
+.content #news {
+    background: url("../../../images/zyneon-bg.png") no-repeat center;
+    background-size:cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.content #news .background {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    z-index: 0;
+}
+
+.content #news .background .top {
+    backdrop-filter: blur(4px);
+    height: 60%;
+    width: 100%;
+    background: linear-gradient(#00000000,var(--background));
+}
+
+.content #news .background .bottom {
+    background: #14ff00;
+    top: 60%;
+    height: 40%;
+    width: 100%;
+    background: var(--background);
+}
+
+.content #news .flex {
+    position: absolute;
+    top: 0; left: 0;
+    margin: 1.5rem;
+    padding: 1rem;
+
+    border-radius: 1rem;
+    width: calc(100% - 5rem);
+    height: 35%;
+
+    color: white;
+}
+
+.content #news .flex div .card {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    text-align: right;
+    background: none;
+    box-shadow: none;
+}
+
+.content #news .flex div .card h2 {
+    padding: 0 0.25rem 0 0.25rem !important;
+    white-space: nowrap;
+}
+
+.content #news .flex div .card h2 a i {
+    position: relative;
+    top: 0.2rem;
+    color: var(--color);
+    font-size: 1.2rem;
+}
+
+.content #news .flex div .card h2 a {
+    margin-left: 0.5rem;
+}
+
+.content #news .flex div .card h2 a:hover i {
+    color: white;
+}
+
+.content #news .news {
+    position: absolute;
+    left: 2rem; top: 6.5rem;
+    right: 2.5rem; bottom: 0;
+}
+
+.content #news .news .banner-container {
+    opacity: 80%;
+    display: none;
+}
+
+.content #news .news .banner {
+    position: absolute;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    right: -2.5rem;
+    width: 32rem;
+    height: 13rem;
+    color: var(--color);
+    background: var(--background-accent);
+    z-index: 1000;
+}
+
+.content #news .news .banner-shadow {
+    position: absolute;
+    right: -2.5rem;
+    width: 32.3rem;
+    height: 13rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    color: var(--accent);
+    background: var(--accent);
+    z-index: 999;
+}
+
+
+.content #news .news .banner .flex img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 5.5rem;
+}
+
+.content #news .news .banner .flex .text {
+    position: absolute;
+    top: 1rem;
+    left: 12rem;
+    height: 10rem;
+    width: calc(100% - 12rem);
+    border-radius: 5.5rem;
+}
+
+.content #news .news .banner .flex .text h3 {
+    white-space: break-spaces;
+    max-height: 6.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.content #news .news iframe {
+    position: absolute;
+    top: 7.5rem;
+    width: 100%;
+    height: calc(100% - 7.5rem);
+    background: none;
+    border: none;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+#submenu {
+    display: none;
+}

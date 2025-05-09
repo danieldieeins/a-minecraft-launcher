@@ -1,0 +1,454 @@
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    80% { transform: rotate(0deg); }
+    85% { transform: rotate(5deg); }
+    95% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/*Menu extra's*/
+.menu ul li a .instance-item.active,.instance-item#selected {
+    color: #fff;
+    background: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+}
+
+.menu ul li a .instance-item.active:hover,.instance-item#selected:hover {
+    color: #fff;
+    background: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+}
+
+.menu ul li a .instance-item:hover {
+    background: var(--highlight);
+    box-shadow: 0 0 0.4rem var(--highlight);
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.menu ul li a .instance-item span {
+    padding: 0.17rem 0 0 0.75rem;
+    font-size: 1.1rem;
+    display: none;
+    white-space: nowrap;
+}
+
+.menu.active ul li a .instance-item span {
+    display: inline;
+    color: var(--color);
+}
+
+.menu.active ul li a .instance-item:hover span {
+    color: var(--inverted);
+    background: none;
+    box-shadow: none;
+}
+
+.menu ul li a .instance-item {
+    position: relative;
+    display: flex;
+    padding: 0.6rem;
+    width: 1.51rem;
+    border-radius: 0.5rem;
+}
+
+.menu.active ul li a .instance-item {
+    position: relative;
+    width: 13.5rem;
+    transition: 0.5s;
+    white-space: nowrap;
+}
+
+.menu ul li a .instance-item#selected span {
+    color: #fff;
+}
+
+.menu ul li a .instance-item.active span {
+    color: #fff;
+}
+
+.menu#submenu.active ul li a .instance-item i {
+    color: var(--color-dim);
+    display: inherit;
+}
+
+.menu#submenu ul li a .instance-item i {
+    display: none;
+}
+
+
+.menu#submenu ul li a .instance-item:hover i {
+    color: var(--inverted);
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+.menu#submenu ul li a .instance-item.active:hover i {
+    color: var(--color-dim);
+    opacity: 1;
+}
+
+
+.menu.active ul li a .instance-item span {
+    display: inline;
+    background: none;
+    box-shadow: none;
+    max-width: 11.8rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.menu ul li a .instance-item.active:hover span,i {
+    color: #fff;
+}
+
+/*Instance view*/
+.content #instance-view .card#title-card i#check {
+    padding: 1.25rem 1.25rem 1.25rem 0;
+    font-size: 1.5rem;
+    color: var(--color-dim);
+}
+
+.content #instance-view .card#title-card .buttons {
+    position: absolute;
+    top: -0.455rem;
+    right: 0.55rem;
+}
+
+.content #instance-view .card#title-card .buttons i {
+    position: absolute;
+    right: 0;
+    padding: 0.5rem;
+    font-size: 2rem;
+    border-radius: 0.5rem;
+}
+
+.content #instance-view .card#title-card .buttons i:hover {
+    z-index: 2000;
+    box-shadow: 0 0 0.4rem var(--color);
+    color: var(--background-accent);
+    background: var(--color);
+}
+
+.content #instance-view .card#title-card .buttons .folder-dropdown {
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+}
+
+.content #instance-view {
+    overflow: hidden;
+}
+
+.content #instance-view .card#title-card .buttons .folder-dropdown .card {
+    text-align: center;
+    display: none;
+    z-index: 1000;
+}
+
+.content #instance-view .card#title-card .buttons .folder-dropdown:hover .card {
+    display: inherit;
+}
+
+.content #instance-view .card#title-card .buttons .folder-dropdown .settings-dropdown .card {
+    position: absolute;
+    text-align: left;
+    top: 4.25rem;
+    right: 9rem;
+    width: 12.5rem;
+    display: none;
+}
+
+.content #instance-view .card#title-card .buttons .folder-dropdown .settings-dropdown:hover .card {
+    display: inherit;
+    text-align: center;
+}
+
+.content #instance-view .card#title-card .buttons .folder-dropdown .card h3:hover {
+    color: var(--background-accent);
+    box-shadow: 0 0 0.4rem var(--color);
+    background: var(--color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.content #instance-view #instance-settings {
+    position: absolute;
+    top: 4rem;
+    right: 0.25rem;
+    width: calc(100% - 1.95rem);
+    height: calc(100% - 13.5rem);
+    padding: 2rem 0.5rem 1rem 1.1rem;
+    overflow-y: auto;
+    z-index: 0;
+}
+
+.content #instance-view #instance-settings .card {
+    box-shadow: 0 0 0.4rem var(--background-accent);
+}
+
+.content #instance-view #instance-settings h3 {
+    position: relative;
+}
+
+.content #instance-view #instance-settings h3 a#show-icon, a#memory-int, a#show-logo, a#show-background {
+    text-decoration: none;
+    color: var(--color-dim);
+    position: absolute;
+    right: 7rem;
+    display: none;
+}
+
+.content #instance-view #instance-settings h3 a#show-icon:hover, a#memory-int, a#show-logo:hover, a#show-background:hover {
+    color: var(--color);
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+
+
+.content #instance-view #instance-settings h3 a#memory-int {
+    text-decoration: none;
+    color: var(--color-dim);
+    position: absolute;
+    right: 7rem;
+    display: inline;
+}
+
+.content #instance-view #instance-settings h3 a#memory-int:hover {
+    cursor: inherit;
+}
+
+.content #instance-view #instance-settings h3 input,select {
+    position: absolute;
+    right: 0.7rem;
+    top: 0.7rem;
+    border-style: none;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+    z-index: 5;
+    color: var(--color);
+    background-color: var(--background4);
+    font-size: 1.2rem;
+    box-shadow: none;
+}
+
+.content #instance-view #instance-settings h3 input#settings-save {
+    position: absolute;
+    left: 0.7rem;
+    top: 0.55rem;
+    right: inherit;
+    border-style: none;
+    text-decoration: none;
+    padding: 0.5rem 0.5rem 0.325rem 0.5rem;
+    border-radius: 0.5rem;
+    z-index: 5;
+    color: var(--color);
+    background-color: var(--background-accent);
+    font-size: 1.1rem;
+    box-shadow: none;
+}
+
+.content #instance-view #instance-settings h3 input#settings-save:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+    transition: 0.25s;
+}
+
+.content #instance-view #instance-settings h3 a.button {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+}
+
+.content #instance-view #instance-settings h3 a.button:hover {
+    font-size: 1.05rem;
+}
+
+.content #instance-view #instance-settings h3 a.button#delete-instance:hover {
+    color: white;
+    background: red;
+    box-shadow: 0 0 0.4rem red;
+    animation: wiggle 0.1s linear infinite;
+}
+
+.content #instance-view {
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);;
+    display: none;
+}
+
+.content #instance-view i {
+    color: var(--color-dim);
+}
+
+.content #instance-view .card#title-card {
+    position: relative;
+    z-index: 100;
+    background: var(--background4);
+}
+
+.content .sidebyside {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-height: 50%;
+}
+
+.content .sidebyside img {
+    border-radius: 0.5rem;
+    width: 49%;
+}
+
+.content .sidebyside #description-card {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 49%;
+}
+
+.content .sidebyside #description-card .card {
+    padding: 1rem;
+    background: var(--background-accent);
+    opacity: 0.6;
+}
+
+.content .sidebyside #description-card .card span {
+    color: var(--color);
+}
+
+.content .sidebyside #description-card .card p {
+    padding-top: 0.25rem;
+    color: var(--color-dim-less);
+}
+
+/*Instance-view dock*/
+.content .dock {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 8rem;
+    width: 100%;
+    box-shadow: 0 0 0.4rem var(--background-accent);
+    z-index: 99;
+    background: var(--background4);
+}
+
+.content .dock a.button#launch {
+    position: absolute;
+    right: 1.3rem;
+    bottom: 1.5rem;
+    color: #fff;
+    background: #6b38bd;
+    box-shadow: 0 0 0.6rem #ffffff40;
+    padding: 1rem 1.1rem 0.85rem 1rem;
+    font-size: 2.5rem;
+}
+
+.content .dock a.button#launch i {
+    color: #fff;
+}
+
+.content .dock a.button#launch:hover {
+    background: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+    animation: wiggle 2.5s linear infinite;
+}
+
+.content .dock .instance-infos {
+    font-size: 1.05rem;
+    padding: 2rem;
+    color: var(--color-dim);
+}
+
+/*Instance-adder*/
+.content #instance-adder .card h3 a.button {
+    font-size: 1.2rem;
+    box-shadow: none;
+}
+
+.content #instance-adder .card h3 a.button {
+    position: relative;
+}
+
+.content #instance-adder .card h3 a.button:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+    transition: 0.25s;
+}
+
+.content #instance-adder .card h3 {
+    position: relative;
+}
+
+.content #instance-adder .card#instance-creator h3 input,select {
+    position: absolute;
+    top: 0.6rem;
+    right: 1rem;
+    border-style: none;
+    text-decoration: none;
+    padding: 0.5rem 0.5rem 0.325rem 0.5rem;
+    border-radius: 0.5rem;
+    width: 16rem;
+    color: var(--color);
+    background-color: var(--background4);
+    font-size: 1.2rem;
+    box-shadow: none;
+}
+
+select#creator-minecraft,select#creator-modloader,select#creator-type,select#creator-mlversion {
+    width: 17rem;
+}
+
+.content #instance-adder {
+    display: none;
+}
+
+.content #instance-adder .card h3 input#create {
+    position: initial;
+    width: inherit;
+    border-style: none;
+    text-decoration: none;
+    padding: 0.5rem 0.5rem 0.325rem 0.5rem;
+    border-radius: 0.5rem;
+    z-index: 5;
+    color: var(--color);
+    background-color: var(--background-accent);
+    font-size: 1.2rem;
+    box-shadow: none;
+}
+
+.content #instance-adder .card h3 input#create:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+    transition: 0.25s;
+}
+
+.content #instance-adder .card input#creator-name {
+    display: inline;
+}
+
+.content #instance-adder .card h3 select#zyneonplus-version,input#id {
+    position: initial;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    width: 16rem;
+    color: var(--color);
+    background-color: var(--inverted);
+    border-style: none;
+    padding: 0.5rem 0.5rem 0.325rem 0.5rem;
+}

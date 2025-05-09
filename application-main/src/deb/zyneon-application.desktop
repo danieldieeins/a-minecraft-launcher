@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=NEXUS App
+Exec=java -jar /usr/bin/nerofy/nexus-app/updater.jar
+Icon=/usr/bin/nerofy/nexus-app/icon.png
+Type=Application
+Categories=Game;

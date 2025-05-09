@@ -1,0 +1,660 @@
+:root {
+    --background: #181818;
+    --background2: #101010;
+    --background3: #1a1a1a;
+    --background4: #080808;
+    --background-accent: #000;
+    --highlight: #fff;
+    --color: #fff;
+    --color-dim: #ffffff60;
+    --color-dim-less: #ffffff90;
+    --inverted: #000;
+    --accent: #7f34f8;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    80% { transform: rotate(0deg); }
+    85% { transform: rotate(5deg); }
+    95% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@font-face {
+    font-family: LTHoopRegular;
+    src: url("../../../../fonts/lthoop-regular.ttf");
+}
+
+.overlay,#hublayer {
+    position: fixed;
+    color: var(--color);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+#hublayer .notifications {
+    position: absolute;
+    right: -10rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    border-radius: 1rem;
+}
+
+#du-button {
+    display: none;
+}
+
+#hublayer .notifications:hover {
+    transition: all 0.25s ease;
+    background: #00000060;
+    box-shadow: 0 0 0.4rem var(--background-accent);
+    pointer-events: auto;
+}
+
+#hublayer .notifications .notification {
+    position: relative;
+    padding: 0.75rem 10rem 0.5rem 1rem;
+    background: rgba(255, 39, 39, 0.6);
+    min-width: 25rem;
+    pointer-events: auto;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    backdrop-filter: blur(16px);
+}
+
+#hublayer .notifications .notification:hover {
+    background: #ff4f4f;
+}
+
+#hublayer .notifications .notification:hover * {
+    color: white;
+}
+
+#hublayer .notifications .notification * {
+    padding: 0 !important;
+    color: white;
+}
+
+#hublayer .notifications .notification h3 {
+    padding: 0.15rem !important;
+}
+
+#hublayer .notifications .notification h3 a.button {
+    margin: 0.5rem 0.5rem 0 0 !important;
+    padding: 0.25rem 0.25rem 0.15rem 0.25rem !important;
+    color: black;
+    background: #ffffff99;
+    border-radius: 0.4rem;
+}
+
+#hublayer .notifications .notification h3 a.button:hover {
+    background: white;
+    color: black;
+}
+
+#message-template {
+    display: none;
+}
+
+#hublayer .notifications .notification h2 {
+    width: 100% !important;
+}
+
+#hublayer .notifications .notification h2 span.date {
+    position: absolute;
+    top: 0.9rem;
+    right: 12rem;
+    text-align: right;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+    color: #ffffff90;
+    display: none;
+}
+
+#hublayer .notifications .notification:hover h2 span.date {
+    display: inline;
+}
+
+#hublayer .notifications .notification h2 a.button {
+    opacity: 75%;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.2rem 0.075rem 0.2rem !important;
+    position: absolute;
+    top: 0.5rem;
+    right: 9.7rem;
+    background: none;
+    color: var(--color);
+    display: none;
+}
+
+#hublayer .notifications .notification:hover h2 a.button {
+    display: inline;
+}
+
+#hublayer .notifications .notification h2 a.button:hover {
+    opacity: 75%;
+    color: red;
+    cursor: pointer;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    font-family: LTHoopRegular, serif;
+}
+
+body {
+    background: var(--background-accent);
+    overflow: hidden;
+}
+
+.content-rows {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/*Menu base*/
+
+.menu {
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: 0 0 0.4rem var(--background-accent);
+    background: var(--background-accent);
+    transition: 0.5s;
+    padding: 1rem;
+    width: 2.25rem;
+}
+
+.menu#main {
+    z-index: 100;
+    box-shadow: none !important;
+}
+
+.menu.active {
+    width: 16rem;
+}
+
+.menu .menu-title {
+    display: none;
+}
+
+.menu.active .menu-title {
+    display: flex;
+}
+
+.menu .menu-title img {
+    height: 2.5rem;
+}
+
+.menu .menu-title p {
+    color: var(--color);
+}
+
+.menu i {
+    color: var(--color);
+    font-size: 1.5rem;
+}
+
+.menu i#switch {
+    position: absolute;
+    top: 1rem;
+    right: 1.4rem;
+}
+
+.menu i#switch:hover {
+    cursor: pointer;
+}
+
+.menu ul li img {
+    width: 24px;
+    height: 24px;
+}
+
+.menu ul {
+    position: absolute;
+    top: 3.6rem;
+    left: 0.75rem;
+    list-style: none;
+    transition: 0.5s;
+}
+
+.menu.active ul {
+    position: absolute;
+    top: 4rem;
+    list-style: none;
+    transition: 0.5s;
+}
+
+.menu ul li#list-template {
+    display: none;
+}
+
+.menu ul li {
+    padding-bottom: 1rem;
+}
+
+.menu.active ul li {
+    padding: 1rem 1rem 0 1rem;
+}
+
+.menu ul li.subtitle {
+    color: var(--color-dim);
+    display: none;
+}
+
+.menu ul li.subtitle span {
+    font-weight: 500;
+    max-width: 10rem;
+    white-space: nowrap;
+}
+
+.menu.active ul li.subtitle {
+    display: inherit;
+}
+
+
+.menu ul li a {
+    text-decoration: none;
+}
+
+.menu ul li a .menu-item {
+    position: relative;
+    display: flex;
+    padding: 0.6rem;
+    width: 1.51rem;
+    border-radius: 0.5rem;
+}
+
+.menu.active ul li a .menu-item {
+    position: relative;
+    width: 13.5rem;
+    transition: 0.5s;
+    white-space: nowrap;
+}
+
+
+.menu ul li a .menu-item:hover {
+    background: var(--highlight);
+    box-shadow: 0 0 0.4rem var(--highlight);
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.menu ul li a .menu-item:hover i {
+    color: var(--inverted);
+    transition: 0.5s;
+}
+
+
+.menu ul li a .menu-item span {
+    padding: 0.17rem 0 0 0.75rem;
+    font-size: 1.1rem;
+    display: none;
+    white-space: nowrap;
+}
+
+.menu.active ul li a .menu-item span {
+    display: inline;
+    color: var(--color);
+}
+
+.menu.active ul li a .menu-item:hover span {
+    color: var(--inverted);
+    background: none;
+    box-shadow: none;
+}
+
+.menu ul li a .menu-item i {
+    position: relative;
+    top: 0.07rem;
+}
+
+.menu ul li a .menu-item#selected span,i {
+    color: #fff;
+}
+
+.menu ul li a .menu-item.active span,i {
+    color: #fff;
+}
+
+.menu ul li a .menu-item#selected i {
+    color: #fff;
+}
+
+.menu ul li a .menu-item.active i {
+    color: #fff;
+}
+
+.menu.active ul li a .menu-item span {
+    display: inline;
+    background: none;
+    box-shadow: none;
+    max-width: 11.8rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.menu ul li a .menu-item.active,.menu-item#selected {
+    color: #fff;
+    background: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+}
+
+.menu ul li a .menu-item.active:hover span,i,.menu ul li a .menu-item#selected:hover span,i {
+    color: #fff;
+}
+
+/*Menu bottom (profile)*/
+.menu .profile {
+    position: absolute;
+    display: flex;
+    padding: 1rem;
+    bottom: 0;
+    left: 0;
+}
+
+.menu .profile img {
+    position: absolute;
+    left: 0.4rem;
+    bottom: 0.5rem;
+    height: 3.5rem;
+    display: none;
+}
+
+.menu .profile:hover {
+    animation: wiggle 1s linear infinite;
+}
+
+.menu .profile img.active {
+    display: inherit;
+}
+
+.menu .profile i {
+    position: absolute;
+    left: 0.85rem;
+    bottom: 0.9rem;
+    font-size: 2.5rem;
+    display: inherit;
+    z-index: 1;
+}
+
+.menu .profile i.active {
+    display: none;
+}
+
+.menu .profile p.username {
+    position: absolute;
+    color: var(--color);
+    left: 4.5rem;
+    bottom: 2.3rem;
+    display: none;
+}
+
+.menu.active .profile p.username {
+    display: inherit;
+    width: 20rem;
+}
+
+.menu .profile a {
+    position: absolute;
+    text-decoration: none;
+    color: var(--color-dim);
+    left: 4.5rem;
+    bottom: 1.2rem;
+    display: none;
+}
+
+.menu.active .profile a {
+    display: inherit;
+}
+
+.menu .profile a:hover {
+    position: absolute;
+    text-decoration: none;
+    transition: 0.5s;
+    color: var(--color);
+}
+
+/*Menu submenu*/
+.menu#submenu.active ul {
+    top: 0.8rem;
+}
+
+.menu#submenu {
+    border-top-left-radius: 1.5rem !important;
+    overflow-y: scroll;
+    z-index: 99;
+    background: var(--background2);
+}
+
+.menu#submenu.active {
+    width: 16rem;
+}
+
+.menu#submenu ul {
+    top: 0.8rem;
+}
+
+.menu#submenu ul li a .menu-item i {
+    color: var(--color);
+}
+
+.menu#submenu ul li a .menu-item.active i {
+    color: white;
+}
+
+.menu#submenu ul li a .menu-item:hover i {
+    color: var(--inverted);
+    transition: 0.5s;
+}
+
+.menu#submenu ul li a .menu-item.active:hover i {
+    color: white;
+    transition: none;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5rem var(--background-accent);
+    border-radius: 1rem;
+}
+
+/*Content frame*/
+.content {
+    overflow: auto;
+    position: relative;
+    padding: 1.5rem;
+    background: var(--background);
+    flex-grow: 1;
+    width: 100%;
+}
+
+.content a.button {
+    text-decoration: none;
+    font-size: 1.05rem;
+    padding: 0.5rem 0.5rem 0.325rem 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.4rem var(--background-accent);
+    z-index: 5;
+    color: var(--color);
+    background-color: var(--background-accent);
+}
+
+.content a.button:hover {
+    cursor: pointer;
+    font-size: large;
+    color: #fff;
+    background-color: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+    transition: 0.25s;
+    z-index: 999;
+}
+
+.content a.button.active {
+    color: var(--inverted);
+    background-color: var(--highlight);
+}
+
+.content a.button.active:hover {
+    color: var(--inverted);
+    background-color: var(--highlight);
+}
+
+/*Stuff*/
+#global-button,#back-to-instance,#drive,#profile-button,#fabric-button,#shader-button,#forge-button,#resourcepack-button,#refresh-button,#exit-button,#startTab,#startTitle,#profile_,#resource-button,#instance-button {
+    display: none;
+}
+
+.card {
+    border-radius: 0.5rem;
+    background: var(--background2);
+    box-shadow: 0 0 0.4rem var(--background-accent);
+    margin-bottom: 1.5rem;
+}
+
+.card h1 {
+    padding: 1rem 1rem 0.75rem 1rem;
+    color: var(--color);
+}
+
+.card h2 {
+    padding: 1rem 1rem 0.75rem 1rem;
+    color: var(--color);
+}
+
+.card h3 {
+    padding: 1rem 1rem 0.75rem 1rem;
+    font-weight: 100;
+    color: var(--color-dim-less);
+}
+
+.card .background {
+    background: var(--background3);
+}
+
+.card .bottom {
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.card .background-bottom {
+    border-radius: 0 0 0.5rem 0.5rem;
+    background: var(--background3);
+}
+
+.card .background-top {
+    border-radius:0.5rem 0.5rem 0 0;
+    background: var(--background3);
+}
+
+.card .background-top-bottom {
+    border-radius:0.5rem;
+    background: var(--background3);
+}
+
+#template {
+    display: none;
+}
+
+.card .title {
+    display: flex;
+}
+
+.card .title img {
+    height: 3rem;
+    width: 3rem;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.flex {
+    position: relative;
+    display: flex;
+}
+
+.bold {
+    font-weight: 1000;
+}
+
+#overlay {
+    position: fixed;
+    color: white;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 100%;
+    background: #00000080;
+    z-index: 200;
+    display: none;
+    text-align: center;
+}
+
+.center-top {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    height: calc(100% - 1.5rem);
+    width: calc(100% - 1.5rem);
+    display: flex;
+    justify-content: center;
+}
+
+.center {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    height: calc(100% - 1.5rem);
+    width: calc(100% - 1.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 a:hover {
+    color: var(--color);
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.card .flex {
+    overflow: hidden;
+    position: relative;
+    max-height: 10rem;
+}
+
+.card .flex img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+*.highlight {
+    color: var(--highlight) !important;
+}
+
+*.snippet {
+    position: relative;
+    background: var(--background-accent);
+    color: var(--color-dim-less);
+    padding: 0.25rem 0.25rem 0.125rem 0.25rem;
+    margin-left: 0.25rem;
+    border-radius: 0.25rem;
+    border: solid var(--background3) 1px;
+}

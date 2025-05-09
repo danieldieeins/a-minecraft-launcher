@@ -1,0 +1,96 @@
+body {
+    background: none;
+    overflow-y: scroll !important;
+}
+
+.content {
+    padding: 1.5rem;
+    margin: 0;
+    overflow: hidden;
+    background: none;
+    width: calc(100% - 3rem);
+}
+
+.content .flex .card {
+    position: relative;
+    width: 50%;
+    border-radius: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    background: var(--background4);
+    box-shadow: 0 0.2rem 0.4rem var(--background-accent);
+}
+
+.content .flex .card:hover {
+    cursor: pointer;
+    background: var(--highlight);
+}
+
+.content .flex .card:hover h1 {
+    color: var(--inverted)
+}
+
+.content .flex .card.active {
+    cursor: initial;
+    z-index: 1;
+    background: var(--accent);
+}
+
+.content .flex .card.active h1 {
+    position: absolute;
+    left: 5%; right: 5%;
+    margin: 0.4rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    color: var(--accent);
+    background: var(--background-accent);
+}
+
+.content .flex .card#news {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.content .flex .card#changelogs {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.content .flex {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 3rem);
+}
+
+.content .card {
+    border-radius: 1rem;
+}
+
+*.top {
+    border-top-right-radius: 1rem !important;
+    border-top-left-radius: 1rem !important;
+}
+
+*.background-top {
+    border-top-right-radius: 1rem !important;
+    border-top-left-radius: 1rem !important;
+}
+
+*.bottom {
+    border-bottom-right-radius: 1rem !important;
+    border-bottom-left-radius: 1rem !important;
+}
+
+*.background-top-bottom {
+    border-radius: 1rem !important;
+}
+
+*.background-bottom {
+    border-bottom-right-radius: 1rem !important;
+    border-bottom-left-radius: 1rem !important;
+}
+
+.cnt {
+    padding: 5rem 1rem 1rem 1rem;
+}

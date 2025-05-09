@@ -1,0 +1,514 @@
+:root {
+    --background: #af4747;
+    --background2: #ffa1a1;
+    --background3: #ff8181;
+    --background4: #ff4949;
+    --background-accent: #ff0000;
+    --highlight: #fff;
+    --color: #fff;
+    --color-dim: #ffffff60;
+    --color-dim-less: #ffffff90;
+    --inverted: #000;
+    --accent: #ff9500;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    80% { transform: rotate(0deg); }
+    85% { transform: rotate(5deg); }
+    95% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@font-face {
+    font-family: LTHoopRegular;
+    src: url("../../../../fonts/lthoop-regular.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    font-family: LTHoopRegular, serif;
+}
+
+body {
+    background: black;
+    overflow: hidden;
+}
+
+.content-rows {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/*Menu base*/
+
+.menu {
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: 0 0 0.4rem var(--background-accent);
+    background: var(--background-accent);
+    transition: 0.5s;
+    padding: 1rem;
+    width: 2.25rem;
+}
+
+.menu#main {
+    z-index: 100;
+}
+
+.menu.active {
+    width: 16rem;
+}
+
+.menu .menu-title {
+    display: none;
+}
+
+.menu.active .menu-title {
+    display: flex;
+}
+
+.menu .menu-title img {
+    height: 2.5rem;
+}
+
+.menu .menu-title p {
+    color: var(--color);
+}
+
+.menu i {
+    color: var(--color);
+    font-size: 1.5rem;
+}
+
+.menu i#switch {
+    position: absolute;
+    top: 1rem;
+    right: 1.4rem;
+}
+
+.menu i#switch:hover {
+    cursor: pointer;
+}
+
+.menu ul li img {
+    width: 24px;
+    height: 24px;
+}
+
+.menu ul {
+    position: absolute;
+    top: 3.6rem;
+    left: 0.75rem;
+    list-style: none;
+    transition: 0.5s;
+}
+
+.menu.active ul {
+    position: absolute;
+    top: 4rem;
+    list-style: none;
+    transition: 0.5s;
+}
+
+.menu ul li#list-template {
+    display: none;
+}
+
+.menu ul li {
+    padding-bottom: 1rem;
+}
+
+.menu.active ul li {
+    padding: 1rem 1rem 0 1rem;
+}
+
+.menu ul li.subtitle {
+    color: var(--color-dim);
+    display: none;
+}
+
+.menu ul li.subtitle span {
+    font-weight: 500;
+    max-width: 10rem;
+    white-space: nowrap;
+}
+
+.menu.active ul li.subtitle {
+    display: inherit;
+}
+
+
+.menu ul li a {
+    text-decoration: none;
+}
+
+.menu ul li a .menu-item {
+    position: relative;
+    display: flex;
+    padding: 0.6rem;
+    width: 1.51rem;
+    border-radius: 0.5rem;
+}
+
+.menu.active ul li a .menu-item {
+    position: relative;
+    width: 13.5rem;
+    transition: 0.5s;
+    white-space: nowrap;
+}
+
+
+.menu ul li a .menu-item:hover {
+    background: var(--highlight);
+    box-shadow: 0 0 0.4rem var(--highlight);
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.menu ul li a .menu-item:hover i {
+    color: var(--inverted);
+    transition: 0.5s;
+}
+
+
+.menu ul li a .menu-item span {
+    padding: 0.17rem 0 0 0.75rem;
+    font-size: 1.1rem;
+    display: none;
+    white-space: nowrap;
+}
+
+.menu.active ul li a .menu-item span {
+    display: inline;
+    color: var(--color);
+}
+
+.menu.active ul li a .menu-item:hover span {
+    color: var(--inverted);
+    background: none;
+    box-shadow: none;
+}
+
+.menu ul li a .menu-item i {
+    position: relative;
+    top: 0.07rem;
+}
+
+.menu ul li a .menu-item#selected span,i {
+    color: #fff;
+}
+
+.menu ul li a .menu-item.active span,i {
+    color: #fff;
+}
+
+.menu ul li a .menu-item#selected i {
+    color: #fff;
+}
+
+.menu ul li a .menu-item.active i {
+    color: #fff;
+}
+
+.menu.active ul li a .menu-item span {
+    display: inline;
+    background: none;
+    box-shadow: none;
+    max-width: 11.8rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.menu ul li a .menu-item.active,.menu-item#selected {
+    color: #fff;
+    background: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+}
+
+.menu ul li a .menu-item.active:hover span,i,.menu ul li a .menu-item#selected:hover span,i {
+    color: #fff;
+}
+
+/*Menu bottom (profile)*/
+.menu .profile {
+    position: absolute;
+    display: flex;
+    padding: 1rem;
+    bottom: 0;
+    left: 0;
+}
+
+.menu .profile img {
+    position: absolute;
+    left: 0.4rem;
+    bottom: 0.5rem;
+    height: 3.5rem;
+    display: none;
+}
+
+.menu .profile:hover {
+    animation: wiggle 1s linear infinite;
+}
+
+.menu .profile img.active {
+    display: inherit;
+}
+
+.menu .profile i {
+    position: absolute;
+    left: 0.85rem;
+    bottom: 0.9rem;
+    font-size: 2.5rem;
+    display: inherit;
+    z-index: 1;
+}
+
+.menu .profile i.active {
+    display: none;
+}
+
+.menu .profile p.username {
+    position: absolute;
+    color: var(--color);
+    left: 4.5rem;
+    bottom: 2.3rem;
+    display: none;
+}
+
+.menu.active .profile p.username {
+    display: inherit;
+    width: 20rem;
+}
+
+.menu .profile a {
+    position: absolute;
+    text-decoration: none;
+    color: var(--color-dim);
+    left: 4.5rem;
+    bottom: 1.2rem;
+    display: none;
+}
+
+.menu.active .profile a {
+    display: inherit;
+}
+
+.menu .profile a:hover {
+    position: absolute;
+    text-decoration: none;
+    transition: 0.5s;
+    color: var(--color);
+}
+
+/*Menu submenu*/
+.menu#submenu.active ul {
+    top: 0.8rem;
+}
+
+.menu#submenu {
+    overflow-y: scroll;
+    z-index: 99;
+    background: var(--background2);
+}
+
+.menu#submenu.active {
+    width: 16rem;
+}
+
+.menu#submenu ul {
+    top: 0.8rem;
+}
+
+.menu#submenu ul li a .menu-item i {
+    color: var(--color);
+}
+
+.menu#submenu ul li a .menu-item.active i {
+    color: white;
+}
+
+.menu#submenu ul li a .menu-item:hover i {
+    color: var(--inverted);
+    transition: 0.5s;
+}
+
+.menu#submenu ul li a .menu-item.active:hover i {
+    color: white;
+    transition: none;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5rem var(--background-accent);
+    border-radius: 1rem;
+}
+
+/*Content frame*/
+.content {
+    overflow: auto;
+    position: relative;
+    padding: 1.5rem;
+    background: var(--background);
+    flex-grow: 1;
+    width: 100%;
+}
+
+.content a.button {
+    text-decoration: none;
+    font-size: 1.05rem;
+    padding: 0.5rem 0.5rem 0.325rem 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.4rem var(--background-accent);
+    z-index: 5;
+    color: var(--color);
+    background-color: var(--background-accent);
+}
+
+.content a.button:hover {
+    cursor: pointer;
+    font-size: large;
+    color: #fff;
+    background-color: var(--accent);
+    box-shadow: 0 0 0.4rem var(--accent);
+    transition: 0.25s;
+    z-index: 999;
+}
+
+.content a.button.active {
+    color: var(--inverted);
+    background-color: var(--highlight);
+}
+
+.content a.button.active:hover {
+    color: var(--inverted);
+    background-color: var(--highlight);
+}
+
+/*Stuff*/
+#global-button,#back-to-instance,#profile-button,#fabric-button,#shader-button,#forge-button,#resourcepack-button,#refresh-button,#exit-button,#startTab,#startTitle,#profile_,#resource-button,#instance-button {
+    display: none;
+}
+
+.content .card {
+    border-radius: 0.5rem;
+    background: var(--background2);
+    box-shadow: 0 0 0.4rem var(--background-accent);
+    margin-bottom: 1.5rem;
+}
+
+.content .card h1 {
+    padding: 1rem 1rem 0.75rem 1rem;
+    color: var(--color);
+}
+
+.content .card h2 {
+    padding: 1rem 1rem 0.75rem 1rem;
+    color: var(--color);
+}
+
+.content .card h3 {
+    padding: 1rem 1rem 0.75rem 1rem;
+    font-weight: 100;
+    color: var(--color-dim-less);
+}
+
+.content .card .background {
+    background: var(--background3);
+}
+
+.content .card .bottom {
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.content .card .background-bottom {
+    border-radius: 0 0 0.5rem 0.5rem;
+    background: var(--background3);
+}
+
+.content .card .background-top {
+    border-radius:0.5rem 0.5rem 0 0;
+    background: var(--background3);
+}
+
+.content .card .background-top-bottom {
+    border-radius:0.5rem;
+    background: var(--background3);
+}
+
+#template {
+    display: none;
+}
+
+.content .card .title {
+    display: flex;
+}
+
+.content .card .title img {
+    height: 3rem;
+    width: 3rem;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.flex {
+    position: relative;
+    display: flex;
+}
+
+.bold {
+    font-weight: 1000;
+}
+
+#overlay {
+    position: absolute;
+    color: white;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 100%;
+    background: #00000080;
+    z-index: 200;
+    display: none;
+}
+
+.center {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    height: calc(100% - 1.5rem);
+    width: calc(100% - 1.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 a:hover {
+    color: var(--color);
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.content .card .flex {
+    overflow: hidden;
+    position: relative;
+    max-height: 10rem;
+}
+
+.content .card .flex img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+}
