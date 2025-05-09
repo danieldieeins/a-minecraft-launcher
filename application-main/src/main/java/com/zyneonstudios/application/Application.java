@@ -44,7 +44,7 @@ public class Application {
     public static boolean thirdPartyWarn;
     public static String lastInstance;
     public static ArrayList<String> args;
-    public static String updateChannel = "old";
+    public static String updateChannel = "stable";
 
     public static final Runner runner = new Runner();
     public static ArrayList<String> running = new ArrayList<>();

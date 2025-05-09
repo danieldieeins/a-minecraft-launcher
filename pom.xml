@@ -6,7 +6,7 @@
 
     <groupId>com.zyneonstudios</groupId>
     <artifactId>application-parent</artifactId>
-    <version>2024.10-old.1</version>
+    <version>2025.5</version>
     <packaging>pom</packaging>
     <name>NEXUS App</name>
 

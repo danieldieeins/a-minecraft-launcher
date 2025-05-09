@@ -6,11 +6,11 @@
     <parent>
         <groupId>com.zyneonstudios</groupId>
         <artifactId>application-parent</artifactId>
-        <version>2024.10-old.1</version>
+        <version>2025.5</version>
     </parent>
 
     <artifactId>application-main</artifactId>
-    <version>2024.10-old.1</version>
+    <version>2025.5</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -41,7 +41,7 @@
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>zyndex-java</artifactId>
-            <version>2025.5.1</version>
+            <version>2025.5.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>com.zyneonstudios.nexus</groupId>
             <artifactId>base-desktop</artifactId>
-            <version>2025.5.3</version>
+            <version>2025.5.4</version>
             <scope>compile</scope>
         </dependency>
 

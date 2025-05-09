@@ -24,7 +24,7 @@
         <div class="menu" id="main">
             <div class="menu-title">
                 <img src="assets/zyneon/images/logo.png" alt="Zyneon Studios logo">
-                <p>NEXUS App</p>
+                <p style="padding-left: 0.5rem;">NEXUS<br>Application</p>
             </div>
             <a onclick="toggleMenu();"><i class="bx bx-menu" id="switch"></i></a>
             <ul>
@@ -182,7 +182,6 @@
                             Update channel:
                             <label>
                                 <select id="channel" onchange="callJavaMethod('button.updateChannel.'+document.getElementById('channel').value);">
-                                    <option value="old">Old (not recommended)</option>
                                     <option value="stable">Stable (recommended)</option>
                                 </select>
                             </label>

@@ -125,7 +125,8 @@ public class AsyncAuth {
                     byte[] a = AESUtility.encrypt(key, authData.get(ZyneonAuth.AuthInfo.ACCESS_TOKEN).getBytes());
                     byte[] r = AESUtility.encrypt(key, authData.get(ZyneonAuth.AuthInfo.REFRESH_TOKEN).getBytes());
                     byte[] n = AESUtility.encrypt(key, authData.get(ZyneonAuth.AuthInfo.USERNAME).getBytes());
-                    byte[] u = AESUtility.encrypt(key, authData.get(ZyneonAuth.AuthInfo.UUID).getBytes());
+                    byte[] u = AESUtility
+                            .encrypt(key, authData.get(ZyneonAuth.AuthInfo.UUID).getBytes());
                     saver.set("opapi.ms.a", new String(a));
                     saver.set("opapi.ms.r", new String(r));
                     saver.set("opapi.ms.n", new String(n));

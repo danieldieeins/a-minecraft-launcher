@@ -212,16 +212,20 @@ public class ZyndexIntegration {
 
             //INFO - AUTHOR
             if (instance.get("modpack.author") != null) {
-                instance.set("instance.info.author", instance.getString("modpack.author"));
+                ArrayList<String> authors = new ArrayList<>();
+                authors.add(instance.getString("modpack.author"));
+                instance.set("instance.info.authors", authors);
             } else {
-                instance.set("instance.info.author", "unknown");
+                instance.set("instance.info.authors", new ArrayList<String>());
             }
 
             //INFO - DESCRIPTION
             if (instance.get("modpack.description") != null) {
-                instance.set("instance.info.description", instance.getString("modpack.description"));
+                instance.set("instance.info.summary", instance.getString("modpack.description"));
+                instance.set("instance.meta.description", instance.getString("modpack.description"));
             } else {
-                instance.set("instance.info.description", "This instance is converted!");
+                instance.set("instance.info.summary", "This instance is converted!");
+                instance.set("instance.meta.description", "This instance is converted!");
             }
 
             //INFO - NAME
@@ -245,11 +249,20 @@ public class ZyndexIntegration {
             //META - IS HIDDEN?
             instance.set("instance.meta.isHidden", false);
 
+            //META - IS EDITABLE?
+            instance.set("instance.meta.isEditable", false);
+
+            //META - FORCE UPDATES?
+            instance.set("instance.meta.forceUpdates", true);
+
             //META - LOCATION
             instance.set("instance.meta.location", "local");
 
             //META - ORIGIN
             instance.set("instance.meta.origin", "unknown");
+
+            //META - TAGS
+            instance.set("instance.meta.tags", new ArrayList<String>());
 
 
             //RESOURCES - BACKGROUND
@@ -299,7 +312,7 @@ public class ZyndexIntegration {
 
             //FILE DATA
             instance.delete("scheme");
-            instance.set("scheme", "2024.3");
+            instance.set("scheme", "2024.7");
             instance.set("converted", true);
             instance.delete("modpack");
 

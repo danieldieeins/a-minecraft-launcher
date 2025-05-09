@@ -32,7 +32,7 @@ public class ApplicationMain {
         splash = new ZyneonSplash();
         splash.setVisible(true);
         FileActions.deleteFolder(new File(getDirectoryPath()+"temp/"));
-        version = "2024.10-old.1";
+        version = "2025.5";
         ArrayList<String> arguments = new ArrayList<>();
         String name = "Omen";
         architecture = getArchitecture();
