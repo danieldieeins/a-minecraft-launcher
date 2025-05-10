@@ -28,11 +28,11 @@
             </div>
             <a onclick="toggleMenu();"><i class="bx bx-menu" id="switch"></i></a>
             <ul>
-                <li>
-                    <a onclick="link('start.html');">
+                <li id="resource-button">
+                    <a onclick="link('resources.html');">
                         <div class="menu-item">
-                            <i class="bx bxs-home"></i>
-                            <span class="menu-item">Home & news</span>
+                            <i class='bx bxs-store-alt'></i>
+                            <span class="menu-item">Discover</span>
                         </div>
                     </a>
                 </li>
@@ -44,14 +44,6 @@
                         </div>
                     </a>
                 </li>
-                <li id="resource-button">
-                    <a onclick="link('resources.html');">
-                        <div class="menu-item">
-                            <i class='bx bxs-store-alt'></i>
-                            <span class="menu-item">Discover</span>
-                        </div>
-                    </a>
-                </li>
                 <li>
                     <a>
                         <div class="menu-item" id="selected">
@@ -60,7 +52,7 @@
                         </div>
                     </a>
                 </li>
-                <li id="drive" style="display: none !important;">
+                <li id="drive" style="display: block !important;">
                     <a onclick="openInBrowser('https://wolkenspeicher.cloud');">
                         <div class="menu-item">
                             <i class='bx bxs-hdd'></i>
@@ -69,7 +61,7 @@
                     </a>
                 </li>
                 <li id="download-button">
-                    <a href="https://www.zyneonstudios.com/nexus/application.html" target="_blank">
+                    <a href="https://nexus.nrfy.net/app" target="_blank">
                         <div class="menu-item">
                             <i class='bx bxs-download'></i>
                             <span class="menu-item">Download application</span>
@@ -132,14 +124,6 @@
                 <li class="subtitle" id="actions-title">
                     <span class="bold">Actions</span>
                 </li>
-                <li id="du-button" style="display: none !important;">
-                    <a onclick="callJavaMethod('button.online');">
-                        <div class="menu-item" id="du">
-                            <i class='bx bx-stop-circle'></i>
-                            <span class="menu-text">Stop dynamic update</span>
-                        </div>
-                    </a>
-                </li>
                 <li id="refresh-button">
                     <a onclick="callJavaMethod('button.refresh');">
                         <div class="menu-item" id="refresh">
@@ -183,6 +167,7 @@
                             <label>
                                 <select id="channel" onchange="callJavaMethod('button.updateChannel.'+document.getElementById('channel').value);">
                                     <option value="stable">Stable (recommended)</option>
+                                    <option value="experimental">Unstable (new app)</option>
                                 </select>
                             </label>
                         </h3>
@@ -192,7 +177,7 @@
                     <h3>Theme:
                         <a class="button" id="appearance-theme-light" onclick="setTheme('default.light'); link('settings.html');">Light</a>
                         <a class="button" id="appearance-theme-dark" onclick="setTheme('default.dark'); link('settings.html');">Dark</a>
-                        <a class="button" id="appearance-theme-zyneon" onclick="setTheme('default.zyneon'); link('settings.html');">Zyneon</a>
+                        <a class="button" id="appearance-theme-zyneon" onclick="setTheme('default.zyneon'); link('settings.html');">Nexus</a>
                     </h3>
                     <h3>Language:
                         <a class="button" id="appearance-language-english"><i class='bx bxs-lock-alt'></i> English</a>
@@ -267,7 +252,7 @@
                 <div class="card">
                     <h3>List</h3>
                     <h3 class="background highlight">Official first party indexes</h3>
-                    <h3>• NEX: <span class="snippet"><a onclick="openInBrowser('https://nexus.zyneonstudios.com/nex')">Official Zyneon Nexus Zyndex</a></span></h3>
+                    <h3>• NEX: <span class="snippet"><a onclick="openInBrowser('https://nexus.nrfy.net/nex')">Official Nerofy Nexus Zyndex</a></span></h3>
                     <h3 class="background highlight">Official third party indexes</h3>
                     <h3>• Modrinth: <span class="snippet"><a onclick="openInBrowser('https://modrinth.com')">https://modrinth.com Modrinth index</a></span></h3>
                     <h3>• CurseForge: <span class="snippet"><a onclick="openInBrowser('https://www.curseforge.com')">https://www.curseforge.com CurseForge index</a></span></h3>
@@ -281,14 +266,14 @@
                     <h3>Information</h3>
                     <h3 class="background"><span class="highlight">NEXUS App</span></h3>
                     <h3><span class="highlight">Developers:</span> nerotvlive<br>
-                        This is an open source project by <a onclick="openInBrowser('https://www.zyneonstudios.com/nexus')">Zyneon Nexus</a>. (GPL-3.0 license)<br><br><a onclick="openInBrowser('https://github.com/danieldieeins/Zyneon-Application');" target="_blank" class="button">View Code on GitHub</a> or <a onclick="openInBrowser('https://github.com/danieldieeins/ZyneonApplicationContent');" target="_blank" class="button">View Content on GitHub</a> or <a onclick="openInBrowser('https://github.com/danieldieeins/Zyneon-Application/blob/master/LICENSE.md');" target="_blank" class="button">View license</a><br></h3>
+                        This is an open source project by <a onclick="openInBrowser('https://nexus.nrfy.net')">Nerofy Nexus</a>. (GPL-3.0 license)<br><br><a onclick="openInBrowser('https://github.com/danieldieeins/NEXUS-App');" target="_blank" class="button">View Code on GitHub</a> or <a onclick="openInBrowser('https://github.com/danieldieeins/NEXUS-App/blob/master/LICENSE.md');" target="_blank" class="button">View license</a><br></h3>
                 </div>
                 <div class="card">
                     <h3>List</h3>
                     <h3 class="background"><span class="highlight">Dependencies</span></h3>
-                    <h3>Nexus-Auth v2024.8 by Zyneon Nexus (GPL-3.0 license)<br><br>→ <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-auth');" target="_blank">View on GitHub</a> or <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-auth/blob/master/LICENSE.md');" target="_blank">View license</a><br></h3>
-                    <h3>Nexus-Verget v2024.8 by Zyneon Nexus (GPL-3.0 license)<br><br>→ <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-verget');" target="_blank">View on GitHub</a> or <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-verget/blob/master/LICENSE.md');" target="_blank">View license</a><br></h3>
-                    <h3>Nexus-Zyndex v2024.6 by Zyneon Nexus (GPL-3.0 license)<br><br>→ <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-zyndex-java');" target="_blank">View on GitHub</a> or <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-zyndex-java/blob/master/LICENSE.md');" target="_blank">View license</a><br></h3>
+                    <h3>Nexus-Auth v2024.8 by Nerofy Nexus (GPL-3.0 license)<br><br>→ <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-auth');" target="_blank">View on GitHub</a> or <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-auth/blob/master/LICENSE.md');" target="_blank">View license</a><br></h3>
+                    <h3>Nexus-Verget v2024.8 by Nerofy Nexus (GPL-3.0 license)<br><br>→ <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-verget');" target="_blank">View on GitHub</a> or <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-verget/blob/master/LICENSE.md');" target="_blank">View license</a><br></h3>
+                    <h3>Nexus-Zyndex v2024.6 by Nerofy Nexus (GPL-3.0 license)<br><br>→ <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-zyndex-java');" target="_blank">View on GitHub</a> or <a class="button" onclick="openInBrowser('https://github.com/zyneonstudios/nexus-zyndex-java/blob/master/LICENSE.md');" target="_blank">View license</a><br></h3>
                     <br>
                     <h3>FlowUpdater v1.8.5 by FlowArg (GPL-3.0 license)<br><br>→ <a class="button" onclick="openInBrowser('https://github.com/FlowArg/FlowUpdater');" target="_blank">View on GitHub</a> or <a class="button" onclick="openInBrowser('https://github.com/FlowArg/FlowUpdater/blob/master/LICENSE');" target="_blank">View license</a><br></h3>
                     <h3>OpenLauncherLib v3.2.11 by FlowArg (GPL-3.0 license)<br><br>→ <a class="button" onclick="openInBrowser('https://github.com/FlowArg/OpenLauncherLib');" target="_blank">View on GitHub</a> or <a class="button" onclick="openInBrowser('https://github.com/FlowArg/OpenLauncherLib/blob/master/LICENSE');" target="_blank">View license</a><br></h3>

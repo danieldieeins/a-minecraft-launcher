@@ -34,7 +34,7 @@ public class ApplicationMain {
         FileActions.deleteFolder(new File(getDirectoryPath()+"temp/"));
         version = "2025.5";
         ArrayList<String> arguments = new ArrayList<>();
-        String name = "Omen";
+        String name = "Resurrectus";
         architecture = getArchitecture();
         logger = new NexusLogger("ZYNEON");
         String fullVersion = version+" ▪ "+name;

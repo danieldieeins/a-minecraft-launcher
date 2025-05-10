@@ -5,7 +5,6 @@ import com.zyneonstudios.application.integrations.modrinth.flowarg.ModrinthInteg
 import com.zyneonstudios.application.integrations.modrinth.flowarg.ModrinthModPack;
 import com.zyneonstudios.application.integrations.modrinth.flowarg.ModrinthModPackInfo;
 import com.zyneonstudios.application.integrations.zyndex.ZyndexIntegration;
-import com.zyneonstudios.application.utils.backend.MinecraftVersion;
 import com.zyneonstudios.nexus.utilities.file.FileGetter;
 import com.zyneonstudios.nexus.utilities.logger.NexusLogger;
 import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
@@ -92,7 +91,6 @@ public class ZModrinthIntegration extends ModrinthIntegration {
                     modloader = "Forge";
                     mlversion = modrinth.getString("dependencies.forge");
                     instance.set("modpack.forge.version",mlversion);
-                    instance.set("modpack.forge.type", MinecraftVersion.getForgeType(minecraft));
                 } else if(modrinth.getString("dependencies.fabric-loader")!=null) {
                     modloader = "Fabric";
                     mlversion = modrinth.getString("dependencies.fabric-loader");

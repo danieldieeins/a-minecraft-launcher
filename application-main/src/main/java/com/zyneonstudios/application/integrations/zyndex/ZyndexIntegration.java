@@ -51,6 +51,9 @@ public class ZyndexIntegration {
     public static WritableInstance update(WritableInstance localInstance) {
         try {
             ReadableZynstance onlineInstance;
+            if(!localInstance.getLocation().startsWith("http")) {
+                return localInstance;
+            }
             try {
                 onlineInstance = new ReadableZynstance(localInstance.getLocation());
             } catch (Exception e) {

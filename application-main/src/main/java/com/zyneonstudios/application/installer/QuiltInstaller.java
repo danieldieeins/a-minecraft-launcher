@@ -3,8 +3,9 @@ package com.zyneonstudios.application.installer;
 import com.zyneonstudios.ApplicationMain;
 import fr.flowarg.flowupdater.FlowUpdater;
 import fr.flowarg.flowupdater.utils.UpdaterOptions;
-import fr.flowarg.flowupdater.versions.QuiltVersion;
 import fr.flowarg.flowupdater.versions.VanillaVersion;
+import fr.flowarg.flowupdater.versions.fabric.QuiltVersion;
+import fr.flowarg.flowupdater.versions.fabric.QuiltVersionBuilder;
 
 import java.nio.file.Path;
 
@@ -18,7 +19,7 @@ public class QuiltInstaller {
         UpdaterOptions options = new UpdaterOptions.UpdaterOptionsBuilder()
                 .build();
 
-        QuiltVersion quilt = new QuiltVersion.QuiltVersionBuilder()
+        QuiltVersion quilt = new QuiltVersionBuilder()
                 .withQuiltVersion(quiltVersion)
                 .build();
 

@@ -27,7 +27,6 @@ import com.zyneonstudios.nexus.utilities.storage.ReadableJsonStorage;
 import com.zyneonstudios.nexus.utilities.strings.StringConverter;
 import com.zyneonstudios.verget.Verget;
 import com.zyneonstudios.verget.minecraft.MinecraftVerget;
-import fr.flowarg.flowupdater.versions.ForgeVersionType;
 import fr.flowarg.openlauncherlib.NoFramework;
 
 import javax.swing.*;
@@ -56,10 +55,6 @@ public class Connector {
     }
 
     private void syncSettings(String type) {
-        frame.executeJavaScript("document.getElementById('du-button').style.display = 'inherit';");
-        if(!Application.online) {
-            frame.executeJavaScript("document.getElementById('du').innerHTML = \"<i class='bx bx-play-circle'></i><span class='menu-text'>Start dynamic update</span>\";");
-        }
         type = type.toLowerCase();
         switch (type) {
             case "general" -> {
@@ -139,9 +134,6 @@ public class Connector {
                         versions = Verget.getForgeGameVersions();
                         String ver = versions.getFirst();
                         String prefix = "";
-                        if (MinecraftVersion.getForgeType(ver) == ForgeVersionType.OLD) {
-                            prefix = "old";
-                        }
                         ArrayList<String> mlversions = Verget.getForgeVersions(ver);
                         for (String version : mlversions) {
                             frame.executeJavaScript("addToSelect('creator-mlversion','" + prefix + version.toLowerCase().replace(" (latest)", "") + "','" + prefix + version + "')");
@@ -162,9 +154,6 @@ public class Connector {
                 if (type.equalsIgnoreCase("forge")) {
                     ArrayList<String> mlversions = Verget.getForgeVersions(version);
                     String prefix = "";
-                    if (MinecraftVersion.getForgeType(version) == ForgeVersionType.OLD) {
-                        prefix = "old";
-                    }
                     for (String v : mlversions) {
                         frame.executeJavaScript("addToSelect('creator-mlversion','" + prefix + v.toLowerCase().replace(" (latest)", "") + "','" + prefix + v + "')");
                     }
@@ -216,9 +205,6 @@ public class Connector {
                         versions = Verget.getForgeGameVersions();
                         String ver = versions.getFirst();
                         String prefix = "";
-                        if (MinecraftVersion.getForgeType(ver) == ForgeVersionType.OLD) {
-                            prefix = "old";
-                        }
                         ArrayList<String> mlversions = Verget.getForgeVersions(ver);
                         for (String version : mlversions) {
                             frame.executeJavaScript("addToSelect('settings-mlversion','" + prefix + version.toLowerCase().replace(" (latest)", "") + "','" + prefix + version + "')");
@@ -239,9 +225,6 @@ public class Connector {
                 if(type.equalsIgnoreCase("forge")) {
                     ArrayList<String> mlversions = Verget.getForgeVersions(version);
                     String prefix = "";
-                    if(MinecraftVersion.getForgeType(version)==ForgeVersionType.OLD) {
-                        prefix = "old";
-                    }
                     for (String v : mlversions) {
                         frame.executeJavaScript("addToSelect('settings-mlversion','" + prefix + v.toLowerCase().replace(" (latest)", "") + "','" + prefix + v + "')");
                     }
@@ -649,9 +632,12 @@ public class Connector {
             Application.loadInstances();
             frame.getBrowser().loadURL(Application.getInstancesURL()+"?tab="+id);
         } else if (request.contains("button.start.")) {
-            frame.executeJavaScript("launchUpdate();");
-            ApplicationMain.getLogger().deb("[CONNECTOR] Trying to start instance " + request.replace("button.start.", ""));
-            resolveInstanceRequest(InstanceAction.RUN, request.replace("button.start.", ""));
+            String finalRequest = request;
+            CompletableFuture.runAsync(()->{
+                frame.executeJavaScript("launchUpdate();");
+                ApplicationMain.getLogger().deb("[CONNECTOR] Trying to start instance " + finalRequest.replace("button.start.", ""));
+                resolveInstanceRequest(InstanceAction.RUN, finalRequest.replace("button.start.", ""));
+            });
         } else if (request.contains("button.starttab.")) {
             String tab = request.replace("button.starttab.", "");
             if (tab.equalsIgnoreCase("instances")) {

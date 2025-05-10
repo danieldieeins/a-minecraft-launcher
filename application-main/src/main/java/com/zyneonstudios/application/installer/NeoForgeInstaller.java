@@ -3,16 +3,15 @@ package com.zyneonstudios.application.installer;
 import com.zyneonstudios.ApplicationMain;
 import fr.flowarg.flowupdater.FlowUpdater;
 import fr.flowarg.flowupdater.utils.UpdaterOptions;
-import fr.flowarg.flowupdater.versions.AbstractForgeVersion;
-import fr.flowarg.flowupdater.versions.ForgeVersionBuilder;
-import fr.flowarg.flowupdater.versions.ForgeVersionType;
 import fr.flowarg.flowupdater.versions.VanillaVersion;
+import fr.flowarg.flowupdater.versions.neoforge.NeoForgeVersion;
+import fr.flowarg.flowupdater.versions.neoforge.NeoForgeVersionBuilder;
 
 import java.nio.file.Path;
 
 public class NeoForgeInstaller {
 
-    public boolean download(String minecraftVersion, String forgeVersion, Path instancePath) {
+    public boolean download(String minecraftVersion, String neoForgeVersion, Path instancePath) {
         VanillaVersion vanillaVersion = new VanillaVersion.VanillaVersionBuilder()
                 .withName(minecraftVersion)
                 .build();
@@ -20,13 +19,13 @@ public class NeoForgeInstaller {
         UpdaterOptions options = new UpdaterOptions.UpdaterOptionsBuilder()
                 .build();
 
-        AbstractForgeVersion forge = new ForgeVersionBuilder(ForgeVersionType.NEO_FORGE)
-                .withForgeVersion(forgeVersion)
+        NeoForgeVersion neoForge = new NeoForgeVersionBuilder()
+                .withNeoForgeVersion(neoForgeVersion)
                 .build();
 
         FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
                 .withVanillaVersion(vanillaVersion)
-                .withModLoaderVersion(forge)
+                .withModLoaderVersion(neoForge)
                 .withUpdaterOptions(options)
                 .build();
 
@@ -34,7 +33,7 @@ public class NeoForgeInstaller {
             updater.update(instancePath);
             return true;
         } catch (Exception e) {
-            ApplicationMain.getLogger().err("[INSTALLER] Couldn't download Minecraft "+minecraftVersion+" with NeoForge "+forgeVersion+": "+e.getMessage());
+            ApplicationMain.getLogger().err("[INSTALLER] Couldn't download Minecraft "+minecraftVersion+" with NeoForge "+neoForgeVersion+": "+e.getMessage());
             return false;
         }
     }

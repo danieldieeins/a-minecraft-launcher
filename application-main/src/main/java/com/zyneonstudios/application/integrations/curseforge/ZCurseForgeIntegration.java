@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.zyneonstudios.ApplicationMain;
 import com.zyneonstudios.application.Application;
 import com.zyneonstudios.application.integrations.zyndex.ZyndexIntegration;
-import com.zyneonstudios.application.utils.backend.MinecraftVersion;
 import com.zyneonstudios.nexus.utilities.file.FileExtractor;
 import com.zyneonstudios.nexus.utilities.file.FileGetter;
 import com.zyneonstudios.nexus.utilities.logger.NexusLogger;
@@ -160,7 +159,6 @@ public class ZCurseForgeIntegration extends CurseForgeIntegration {
                             modloader = "Forge";
                             mlversion = id.replace("forge-","");
                             instance.set("modpack.forge.version",mlversion);
-                            instance.set("modpack.forge.type", MinecraftVersion.getForgeType(minecraft));
                         } else if(id.startsWith("fabric-")) {
                             modloader = "Fabric";
                             mlversion = id.replace("fabric-","");

@@ -8,7 +8,6 @@ import com.zyneonstudios.application.integrations.zyndex.ZyndexIntegration;
 import com.zyneonstudios.application.integrations.zyndex.instance.WritableInstance;
 import com.zyneonstudios.application.utils.backend.MinecraftVersion;
 import com.zyneonstudios.application.utils.frame.LogFrame;
-import fr.flowarg.flowupdater.versions.ForgeVersionType;
 import fr.flowarg.openlauncherlib.NoFramework;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;
 
@@ -20,17 +19,14 @@ public class ForgeLauncher {
     public void launch(WritableInstance instance) {
         WritableInstance updatedInstance = ZyndexIntegration.update(instance);
         if(updatedInstance!=null) {
-            launch(updatedInstance.getMinecraftVersion(), updatedInstance.getForgeVersion(), ForgeVersionType.valueOf(updatedInstance.getForgeType().toUpperCase()), updatedInstance.getSettings().getMemory(), Path.of(updatedInstance.getPath()),updatedInstance.getId());
+            launch(updatedInstance.getMinecraftVersion(), updatedInstance.getForgeVersion(), updatedInstance.getSettings().getMemory(), Path.of(updatedInstance.getPath()),updatedInstance.getId());
         } else {
-            launch(instance.getMinecraftVersion(), instance.getForgeVersion(), ForgeVersionType.valueOf(instance.getForgeType().toUpperCase()), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId());
+            launch(instance.getMinecraftVersion(), instance.getForgeVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId());
         }
         System.gc();
     }
 
-    public void launch(String minecraftVersion, String forgeVersion, ForgeVersionType forgeType, int ram, Path instancePath, String id) {
-        if(forgeType.equals(ForgeVersionType.NEO_FORGE)) {
-            return;
-        }
+    public void launch(String minecraftVersion, String forgeVersion, int ram, Path instancePath, String id) {
         MinecraftVersion.Type type = MinecraftVersion.getType(minecraftVersion);
         if(type!=null) {
             Launcher.setJava(type);
@@ -38,29 +34,26 @@ public class ForgeLauncher {
         if(ram<512) {
             ram = 512;
         }
-        if(forgeType.equals(ForgeVersionType.NEW)) {
-            forgeVersion = forgeVersion.replace(minecraftVersion + "-", "");
-        } else {
-            if(!forgeVersion.startsWith(minecraftVersion)) {
-                forgeVersion = minecraftVersion + "-"+forgeVersion;
-            }
-        }
-        if(new ForgeInstaller().download(minecraftVersion,forgeVersion,forgeType,instancePath)) {
+
+        if(new ForgeInstaller().download(minecraftVersion,forgeVersion,instancePath)) {
+
             NoFramework.ModLoader forge;
-            if(forgeType==ForgeVersionType.OLD) {
-                forge = NoFramework.ModLoader.OLD_FORGE;
-            } else {
-                forge = NoFramework.ModLoader.FORGE;
-            }
+            forge = NoFramework.ModLoader.FORGE;
             NoFramework framework = new NoFramework(
                     instancePath,
                     Application.auth.getAuthInfos(),
                     GameFolder.FLOW_UPDATER
             );
+            if(MinecraftVersion.getForgeType(minecraftVersion) == MinecraftVersion.ForgeType.NEW) {
+                forgeVersion = forgeVersion.replace(minecraftVersion + "-", "");
+            } else {
+                framework.setCustomModLoaderJsonFileName(minecraftVersion + "-forge"+forgeVersion+".json");
+            }
             if(minecraftVersion.equals("1.7.10")) {
+                forgeVersion = forgeVersion.replace(minecraftVersion+"-","");
                 framework.setCustomModLoaderJsonFileName("1.7.10-Forge" + forgeVersion + ".json");
             }
-            framework.getAdditionalVmArgs().add("-Xms512M");
+            framework.getAdditionalVmArgs().add("-Xms"+ ram +"M");
             framework.getAdditionalVmArgs().add("-Xmx" + ram + "M");
             if(ApplicationMain.operatingSystem== OperatingSystem.macOS) {
                 framework.getAdditionalVmArgs().add("-XstartOnFirstThread");
@@ -74,7 +67,7 @@ public class ForgeLauncher {
                 Application.getFrame().setState(JFrame.ICONIFIED);
                 LogFrame log;
                 if(Application.logOutput) {
-                    log = new LogFrame(game.getInputStream(),"Minecraft "+minecraftVersion+" (with "+forgeType.toString().toLowerCase()+"Forge "+forgeVersion+")");
+                    log = new LogFrame(game.getInputStream(),"Minecraft "+minecraftVersion+" (with Forge "+forgeVersion+")");
                 } else {
                     log = null;
                 }
@@ -92,13 +85,13 @@ public class ForgeLauncher {
                 if(!Application.auth.isLoggedIn()) {
                     Application.getFrame().getBrowser().loadURL(Application.getSettingsURL()+"?tab=profile");
                 }
-                ApplicationMain.getLogger().err("[LAUNCHER] Couldn't start Forge "+forgeVersion+" ("+forgeType+") for Minecraft "+minecraftVersion+" in "+instancePath+" with "+ram+"M RAM");
+                ApplicationMain.getLogger().err("[LAUNCHER] Couldn't start Forge "+forgeVersion+" for Minecraft "+minecraftVersion+" in "+instancePath+" with "+ram+"M RAM");
                 throw new RuntimeException(e);
             }
         } else {
             Application.getFrame().executeJavaScript("launchDefault();");
             Application.running.remove(id);
-            ApplicationMain.getLogger().err("[LAUNCHER] Couldn't start Forge "+forgeVersion+" ("+forgeType+") for Minecraft "+minecraftVersion+" in "+instancePath+" with "+ram+"M RAM");
+            ApplicationMain.getLogger().err("[LAUNCHER] Couldn't start Forge "+forgeVersion+" for Minecraft "+minecraftVersion+" in "+instancePath+" with "+ram+"M RAM");
         }
     }
 }

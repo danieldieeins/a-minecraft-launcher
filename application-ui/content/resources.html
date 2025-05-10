@@ -28,11 +28,11 @@
                 </div>
                 <a onclick="toggleMenu();"><i class="bx bx-menu" id="switch"></i></a>
                 <ul>
-                    <li>
-                        <a onclick="link('start.html');">
+                    <li id="resource-button">
+                        <a>
                             <div class="menu-item">
-                                <i class="bx bxs-home"></i>
-                                <span class="menu-item">Home & news</span>
+                                <i class='bx bxs-store-alt'></i>
+                                <span class="menu-item">Discover</span>
                             </div>
                         </a>
                     </li>
@@ -44,14 +44,6 @@
                             </div>
                         </a>
                     </li>
-                    <li id="resource-button">
-                        <a>
-                            <div class="menu-item" id="selected">
-                                <i class='bx bxs-store-alt'></i>
-                                <span class="menu-item">Discover</span>
-                            </div>
-                        </a>
-                    </li>
                     <li>
                         <a onclick="link('settings.html');">
                             <div class="menu-item">
@@ -60,7 +52,7 @@
                             </div>
                         </a>
                     </li>
-                    <li id="drive" style="display: none !important;">
+                    <li id="drive" style="display: block !important;">
                         <a onclick="openInBrowser('https://wolkenspeicher.cloud');">
                             <div class="menu-item">
                                 <i class='bx bxs-hdd'></i>
@@ -69,7 +61,7 @@
                         </a>
                     </li>
                     <li id="download-button">
-                        <a href="https://www.zyneonstudios.com/nexus/application.html" target="_blank">
+                        <a href="https://nexus.nrfy.net/app" target="_blank">
                             <div class="menu-item">
                                 <i class='bx bxs-download'></i>
                                 <span class="menu-item">Download application</span>

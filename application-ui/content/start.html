@@ -28,11 +28,11 @@
             </div>
             <a onclick="toggleMenu();"><i class="bx bx-menu" id="switch"></i></a>
             <ul>
-                <li>
-                    <a>
-                        <div class="menu-item" id="selected">
-                            <i class="bx bxs-home"></i>
-                            <span class="menu-item">Home & news</span>
+                <li id="resource-button">
+                    <a onclick="link('resources.html');">
+                        <div class="menu-item">
+                            <i class='bx bxs-store-alt'></i>
+                            <span class="menu-item">Discover</span>
                         </div>
                     </a>
                 </li>
@@ -44,14 +44,6 @@
                         </div>
                     </a>
                 </li>
-                <li id="resource-button">
-                    <a onclick="link('resources.html');">
-                        <div class="menu-item">
-                            <i class='bx bxs-store-alt'></i>
-                            <span class="menu-item">Discover</span>
-                        </div>
-                    </a>
-                </li>
                 <li>
                     <a onclick="link('settings.html');">
                         <div class="menu-item">
@@ -60,7 +52,7 @@
                         </div>
                     </a>
                 </li>
-                <li id="drive" style="display: none !important;">
+                <li id="drive" style="display: block !important;">
                     <a onclick="openInBrowser('https://wolkenspeicher.cloud');">
                         <div class="menu-item">
                             <i class='bx bxs-hdd'></i>
@@ -69,7 +61,7 @@
                     </a>
                 </li>
                 <li id="download-button">
-                    <a href="https://www.zyneonstudios.com/nexus/application.html" target="_blank">
+                    <a href="https://nexus.nrfy.net/app" target="_blank">
                         <div class="menu-item">
                             <i class='bx bxs-download'></i>
                             <span class="menu-item">Download application</span>
@@ -100,7 +92,7 @@
                     </div>
                     <div>
                         <div class="card">
-                            <h2><a class="button" onclick="openInBrowser('https://nexus.zyneonstudios.com');"><i class='bx bx-globe' ></i> Website</a><a class="button" onclick="openInBrowser('https://discord.gg/Q2AEWfesZW');"><i class='bx bxl-discord-alt' ></i> Discord</a><a class="button" id="app-button" onclick="openInBrowser('https://nexus.zyneonstudios.com/application.html');"><i class='bx bx-download ' ></i> Download app</a></h2>
+                            <h2><a class="button" onclick="openInBrowser('https://nexus.nrfy.net');"><i class='bx bx-globe' ></i> Website</a><a class="button" onclick="openInBrowser('https://discord.gg/GfKgd3SNUW');"><i class='bx bxl-discord-alt' ></i> Discord</a><a class="button" id="app-button" onclick="openInBrowser('https://nexus.nrfy.net/app.html');"><i class='bx bx-download ' ></i> Download app</a></h2>
                         </div>
                     </div>
                 </div>
@@ -113,7 +105,7 @@
                     </div>
                 </div>
                 <div class="news">
-                    <iframe id="iframe" src="https://danieldieeins.github.io/Zyneon-Application/news/news.html"></iframe>
+                    <iframe id="iframe" src="https://danieldieeins.github.io/NEXUS-App/news/news.html"></iframe>
                 </div>
             </div>
         </div>

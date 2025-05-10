@@ -266,7 +266,7 @@ public class Application {
 
     public static String getNewsURL() {
         if(online) {
-            return "https://danieldieeins.github.io/Zyneon-Application/content/start.html";
+            return "https://danieldieeins.github.io/NEXUS-App/content/start.html";
         } else {
             return "file://"+getURLBase()+"start.html";
         }
@@ -274,7 +274,7 @@ public class Application {
 
     public static String getInstancesURL() {
         if(online) {
-            return "https://danieldieeins.github.io/Zyneon-Application/content/instances.html";
+            return "https://danieldieeins.github.io/NEXUS-App/content/instances.html";
         } else {
             return "file://"+getURLBase()+"instances.html";
         }
@@ -282,7 +282,7 @@ public class Application {
 
     public static String getSettingsURL() {
         if(online) {
-            return "https://danieldieeins.github.io/Zyneon-Application/content/settings.html";
+            return "https://danieldieeins.github.io/NEXUS-App/content/settings.html";
         } else {
             return "file://"+getURLBase()+"settings.html";
         }

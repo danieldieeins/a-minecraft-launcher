@@ -67,7 +67,7 @@
         <dependency>
             <groupId>fr.flowarg</groupId>
             <artifactId>flowupdater</artifactId>
-            <version>1.8.5</version>
+            <version>1.9.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -175,7 +175,7 @@
                                     </mapper>
                                 </data>
                                 <data>
-                                    <src>src/deb/zyneon-application.desktop</src>
+                                    <src>src/deb/nexus-app.desktop</src>
                                     <type>file</type>
                                     <mapper>
                                         <type>perm</type>

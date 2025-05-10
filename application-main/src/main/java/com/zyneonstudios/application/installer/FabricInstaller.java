@@ -3,8 +3,9 @@ package com.zyneonstudios.application.installer;
 import com.zyneonstudios.ApplicationMain;
 import fr.flowarg.flowupdater.FlowUpdater;
 import fr.flowarg.flowupdater.utils.UpdaterOptions;
-import fr.flowarg.flowupdater.versions.FabricVersion;
 import fr.flowarg.flowupdater.versions.VanillaVersion;
+import fr.flowarg.flowupdater.versions.fabric.FabricVersion;
+import fr.flowarg.flowupdater.versions.fabric.FabricVersionBuilder;
 
 import java.nio.file.Path;
 
@@ -18,7 +19,7 @@ public class FabricInstaller {
         UpdaterOptions options = new UpdaterOptions.UpdaterOptionsBuilder()
                 .build();
 
-        FabricVersion fabric = new FabricVersion.FabricVersionBuilder()
+        FabricVersion fabric = new FabricVersionBuilder()
                 .withFabricVersion(fabricVersion)
                 .build();
 
