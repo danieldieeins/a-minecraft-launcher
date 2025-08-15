@@ -10,13 +10,6 @@
     <packaging>pom</packaging>
     <name>NEXUS App</name>
 
-    <repositories>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/zyneonstudios/zyneon-maven</url>
-        </repository>
-    </repositories>
-
     <modules>
         <module>application-main</module>
     </modules>
