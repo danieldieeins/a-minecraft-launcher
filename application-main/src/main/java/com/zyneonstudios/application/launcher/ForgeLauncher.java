@@ -6,7 +6,7 @@ import com.zyneonstudios.application.installer.ForgeInstaller;
 import com.zyneonstudios.application.installer.java.OperatingSystem;
 import com.zyneonstudios.application.integrations.zyndex.ZyndexIntegration;
 import com.zyneonstudios.application.integrations.zyndex.instance.WritableInstance;
-import com.zyneonstudios.application.utils.backend.MinecraftVersion;
+import com.zyneonstudios.application.utils.MinecraftVersion;
 import com.zyneonstudios.application.utils.frame.LogFrame;
 import fr.flowarg.openlauncherlib.NoFramework;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;

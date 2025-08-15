@@ -1,4 +1,4 @@
-package com.zyneonstudios.application.utils.backend;
+package com.zyneonstudios.application.utils;
 
 import com.zyneonstudios.nexus.Main;
 import com.zyneonstudios.verget.Verget;

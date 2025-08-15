@@ -71,7 +71,7 @@ public class JavaInstaller {
         this.runtimeVersion = runtimeVersion;
     }
 
-    public void install() {
+    public void install(String path) {
         String versionString = getVersionString();
         if(versionString.contains("null")) {
             throw new NullPointerException("Couldn't find such a java version");
@@ -79,10 +79,10 @@ public class JavaInstaller {
             ApplicationMain.getLogger().deb("[INSTALLER] (JAVA) Gathering java information...");
             ReadableJsonStorage index = new ReadableJsonStorage("https://raw.githubusercontent.com/danieldieeins/ZyneonApplicationContent/main/l/application.json");
             String download = index.getString("runtime."+versionString);
-            String zipPath = ApplicationMain.getDirectoryPath()+"libs/"+runtimeVersion+".zip";
+            String zipPath = path+"libs/"+runtimeVersion+".zip";
             ApplicationMain.getLogger().deb("[INSTALLER] (JAVA) Starting download from "+download+" to "+zipPath+"...");
             FileGetter.downloadFile(download, zipPath);
-            FileExtractor.unzipFile(zipPath, ApplicationMain.getDirectoryPath()+"libs/");
+            FileExtractor.unzipFile(zipPath, path+"libs/");
             ApplicationMain.getLogger().deb("[INSTALLER] (JAVA) Deleted zip-File: "+new File(zipPath).delete());
             ApplicationMain.getLogger().log("[INSTALLER] (JAVA) Installed Java Runtime: "+versionString+"!");
         }

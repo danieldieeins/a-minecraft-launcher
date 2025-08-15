@@ -3,7 +3,7 @@ package com.zyneonstudios.application.launcher;
 import com.zyneonstudios.ApplicationMain;
 import com.zyneonstudios.application.installer.java.Java;
 import com.zyneonstudios.application.installer.java.JavaInstaller;
-import com.zyneonstudios.application.utils.backend.MinecraftVersion;
+import com.zyneonstudios.application.utils.MinecraftVersion;
 import fr.theshark34.openlauncherlib.JavaUtil;
 
 import java.io.File;
