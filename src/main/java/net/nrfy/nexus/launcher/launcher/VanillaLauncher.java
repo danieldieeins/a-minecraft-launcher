@@ -19,13 +19,22 @@ public class VanillaLauncher extends MinecraftLauncher {
 
     private WritableInstance instance = null;
 
-    public void launch(WritableInstance instance, AuthInfos authInfos) {
-        this.instance = instance;
-        ZyndexIntegration.update(instance);
-        launch(instance.getMinecraftVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId(),authInfos);
+    private AuthInfos authInfos;
+    public VanillaLauncher(AuthInfos authInfos) {
+        this.authInfos = authInfos;
     }
 
-    public void launch(String version, int ram, Path instancePath, String id, AuthInfos authInfos) {
+    public void setAuthInfos(AuthInfos authInfos) {
+        this.authInfos = authInfos;
+    }
+
+    public void launch(WritableInstance instance) {
+        this.instance = instance;
+        ZyndexIntegration.update(instance);
+        launch(instance.getMinecraftVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId());
+    }
+
+    public void launch(String version, int ram, Path instancePath, String id) {
         if(!launched) {
             launched = true;
 

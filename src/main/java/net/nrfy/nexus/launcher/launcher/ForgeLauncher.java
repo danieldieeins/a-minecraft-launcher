@@ -20,18 +20,27 @@ public class ForgeLauncher extends MinecraftLauncher {
 
     private WritableInstance instance = null;
 
-    public void launch(WritableInstance instance, AuthInfos authInfos) {
+    private AuthInfos authInfos;
+    public ForgeLauncher(AuthInfos authInfos) {
+        this.authInfos = authInfos;
+    }
+
+    public void setAuthInfos(AuthInfos authInfos) {
+        this.authInfos = authInfos;
+    }
+
+    public void launch(WritableInstance instance) {
         this.instance = instance;
         WritableInstance updatedInstance = ZyndexIntegration.update(instance);
         if(updatedInstance!=null) {
-            launch(updatedInstance.getMinecraftVersion(), updatedInstance.getForgeVersion(), updatedInstance.getSettings().getMemory(), Path.of(updatedInstance.getPath()),updatedInstance.getId(), authInfos);
+            launch(updatedInstance.getMinecraftVersion(), updatedInstance.getForgeVersion(), updatedInstance.getSettings().getMemory(), Path.of(updatedInstance.getPath()),updatedInstance.getId());
         } else {
-            launch(instance.getMinecraftVersion(), instance.getForgeVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId(), authInfos);
+            launch(instance.getMinecraftVersion(), instance.getForgeVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId());
         }
         System.gc();
     }
 
-    public void launch(String minecraftVersion, String forgeVersion, int ram, Path instancePath, String id, AuthInfos authInfos) {
+    public void launch(String minecraftVersion, String forgeVersion, int ram, Path instancePath, String id) {
         if(!launched) {
             launched = true;
             if (getPreLaunchHook() != null) {
