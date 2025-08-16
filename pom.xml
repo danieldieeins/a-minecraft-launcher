@@ -6,7 +6,7 @@
 
     <groupId>net.nrfy.nexus</groupId>
     <artifactId>a-minecraft-launcher-libs</artifactId>
-    <version>2025.5-beta.1</version>
+    <version>2025.8-beta.1</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -110,4 +110,11 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>nerofy-snapshots</id>
+            <name>Nerofy Network Maven repository</name>
+            <url>https://maven.nrfy.net/snapshots</url>
+        </repository>
+    </distributionManagement>
 </project>
