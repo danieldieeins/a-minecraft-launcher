@@ -12,5 +12,5 @@ public abstract class LauncherHook {
         return launcher;
     }
 
-    abstract void run();
+    public abstract void run();
 }

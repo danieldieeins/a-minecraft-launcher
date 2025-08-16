@@ -6,7 +6,7 @@
 
     <groupId>net.nrfy.nexus</groupId>
     <artifactId>a-minecraft-launcher-libs</artifactId>
-    <version>2025.8-beta.4</version>
+    <version>2025.8-beta.5</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
