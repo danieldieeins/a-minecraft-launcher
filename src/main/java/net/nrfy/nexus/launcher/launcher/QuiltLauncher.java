@@ -17,7 +17,10 @@ public class QuiltLauncher extends MinecraftLauncher {
     private NoFramework framework;
     private boolean launched = false;
 
+    private WritableInstance instance = null;
+
     public void launch(WritableInstance instance, AuthInfos authInfos) {
+        this.instance = instance;
         WritableInstance updatedInstance = ZyndexIntegration.update(instance);
         if(updatedInstance!=null) {
             launch(updatedInstance.getMinecraftVersion(), updatedInstance.getQuiltVersion(), updatedInstance.getSettings().getMemory(), Path.of(updatedInstance.getPath()),updatedInstance.getId(), authInfos);
@@ -82,5 +85,10 @@ public class QuiltLauncher extends MinecraftLauncher {
     @Override
     public boolean isLaunched() {
         return launched;
+    }
+
+    @Override
+    public WritableInstance getInstance() {
+        return instance;
     }
 }

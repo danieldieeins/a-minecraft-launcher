@@ -1,6 +1,16 @@
 package net.nrfy.nexus.launcher.launcher;
 
-public interface LauncherHook {
+public abstract class LauncherHook {
 
-    void run();
+    private final MinecraftLauncher launcher;
+
+    public LauncherHook(MinecraftLauncher launcher) {
+        this.launcher = launcher;
+    }
+
+    public MinecraftLauncher getLauncher() {
+        return launcher;
+    }
+
+    abstract void run();
 }

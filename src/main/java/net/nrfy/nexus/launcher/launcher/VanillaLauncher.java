@@ -17,7 +17,10 @@ public class VanillaLauncher extends MinecraftLauncher {
     private NoFramework framework;
     private boolean launched = false;
 
+    private WritableInstance instance = null;
+
     public void launch(WritableInstance instance, AuthInfos authInfos) {
+        this.instance = instance;
         ZyndexIntegration.update(instance);
         launch(instance.getMinecraftVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId(),authInfos);
     }
@@ -77,5 +80,10 @@ public class VanillaLauncher extends MinecraftLauncher {
     @Override
     public boolean isLaunched() {
         return launched;
+    }
+
+    @Override
+    public WritableInstance getInstance() {
+        return instance;
     }
 }
