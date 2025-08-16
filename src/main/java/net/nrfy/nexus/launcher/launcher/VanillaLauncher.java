@@ -11,35 +11,11 @@ import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableInstance;
 
 import java.nio.file.Path;
 
-public class VanillaLauncher {
+public class VanillaLauncher extends MinecraftLauncher {
 
-    private LauncherHook preLaunchHook;
-    private LauncherHook postLaunchHook;
-    private LauncherHook gameCloseHook;
-
-    public void setGameCloseHook(LauncherHook gameCloseHook) {
-        this.gameCloseHook = gameCloseHook;
-    }
-
-    public void setPostLaunchHook(LauncherHook postLaunchHook) {
-        this.postLaunchHook = postLaunchHook;
-    }
-
-    public void setPreLaunchHook(LauncherHook preLaunchHook) {
-        this.preLaunchHook = preLaunchHook;
-    }
-
-    public LauncherHook getGameCloseHook() {
-        return gameCloseHook;
-    }
-
-    public LauncherHook getPostLaunchHook() {
-        return postLaunchHook;
-    }
-
-    public LauncherHook getPreLaunchHook() {
-        return preLaunchHook;
-    }
+    private Process gameProcess;
+    private NoFramework framework;
+    private boolean launched = false;
 
     public void launch(WritableInstance instance, AuthInfos authInfos) {
         ZyndexIntegration.update(instance);
@@ -47,40 +23,59 @@ public class VanillaLauncher {
     }
 
     public void launch(String version, int ram, Path instancePath, String id, AuthInfos authInfos) {
-        if(preLaunchHook != null) {
-            preLaunchHook.run();
-        }
+        if(!launched) {
+            launched = true;
 
-        if(ram<512) {
-            ram = 512;
-        }
-        if(new VanillaInstaller().download(version,instancePath)) {
-            NoFramework framework = new NoFramework(
-                    instancePath,
-                    authInfos,
-                    GameFolder.FLOW_UPDATER
-            );
-            framework.getAdditionalVmArgs().add("-Xms512M");
-            framework.getAdditionalVmArgs().add("-Xmx4096M");
-            if(OperatingSystem.getType() == OperatingSystem.Type.macOS) {
-                framework.getAdditionalVmArgs().add("-XstartOnFirstThread");
+            if (getPreLaunchHook() != null) {
+                getPreLaunchHook().run();
             }
-            try {
-                Process game = framework.launch(version, "", NoFramework.ModLoader.VANILLA);
-                if(postLaunchHook != null) {
-                    postLaunchHook.run();
+
+            if (ram < 512) {
+                ram = 512;
+            }
+            if (new VanillaInstaller().download(version, instancePath)) {
+                framework = new NoFramework(
+                        instancePath,
+                        authInfos,
+                        GameFolder.FLOW_UPDATER
+                );
+                framework.getAdditionalVmArgs().add("-Xms512M");
+                framework.getAdditionalVmArgs().add("-Xmx4096M");
+                if (OperatingSystem.getType() == OperatingSystem.Type.macOS) {
+                    framework.getAdditionalVmArgs().add("-XstartOnFirstThread");
                 }
-                game.onExit().thenRun(()->{
-                    if(gameCloseHook != null) {
-                        gameCloseHook.run();
+                try {
+                    gameProcess = framework.launch(version, "", NoFramework.ModLoader.VANILLA);
+                    if (getPostLaunchHook() != null) {
+                        getPostLaunchHook().run();
                     }
-                });
-            } catch (Exception e) {
+                    gameProcess.onExit().thenRun(() -> {
+                        if (getGameCloseHook() != null) {
+                            getGameCloseHook().run();
+                        }
+                    });
+                } catch (Exception e) {
+                    NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Minecraft Vanilla " + version + " in " + instancePath + " with " + ram + "M RAM");
+                    throw new RuntimeException(e);
+                }
+            } else {
                 NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Minecraft Vanilla " + version + " in " + instancePath + " with " + ram + "M RAM");
-                throw new RuntimeException(e);
             }
-        } else {
-            NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Minecraft Vanilla " + version + " in " + instancePath + " with " + ram + "M RAM");
         }
+    }
+
+    @Override
+    public Process getGameProcess() {
+        return gameProcess;
+    }
+
+    @Override
+    public NoFramework getFramework() {
+        return framework;
+    }
+
+    @Override
+    public boolean isLaunched() {
+        return launched;
     }
 }

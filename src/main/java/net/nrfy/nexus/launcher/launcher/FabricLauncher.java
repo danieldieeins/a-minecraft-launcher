@@ -11,35 +11,11 @@ import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableInstance;
 
 import java.nio.file.Path;
 
-public class FabricLauncher {
+public class FabricLauncher extends MinecraftLauncher {
 
-    private LauncherHook preLaunchHook;
-    private LauncherHook postLaunchHook;
-    private LauncherHook gameCloseHook;
-
-    public void setGameCloseHook(LauncherHook gameCloseHook) {
-        this.gameCloseHook = gameCloseHook;
-    }
-
-    public void setPostLaunchHook(LauncherHook postLaunchHook) {
-        this.postLaunchHook = postLaunchHook;
-    }
-
-    public void setPreLaunchHook(LauncherHook preLaunchHook) {
-        this.preLaunchHook = preLaunchHook;
-    }
-
-    public LauncherHook getGameCloseHook() {
-        return gameCloseHook;
-    }
-
-    public LauncherHook getPostLaunchHook() {
-        return postLaunchHook;
-    }
-
-    public LauncherHook getPreLaunchHook() {
-        return preLaunchHook;
-    }
+    private Process gameProcess;
+    private NoFramework framework;
+    private boolean launched = false;
 
     public void launch(WritableInstance instance, AuthInfos authInfos) {
         WritableInstance updatedInstance = ZyndexIntegration.update(instance);
@@ -52,40 +28,58 @@ public class FabricLauncher {
     }
 
     public void launch(String minecraftVersion, String fabricVersion, int ram, Path instancePath, String id, AuthInfos authInfos) {
-        if(preLaunchHook != null) {
-            preLaunchHook.run();
-        }
+        if(!launched) {
+            launched = true;
+            if (getPreLaunchHook() != null) {
+                getPreLaunchHook().run();
+            }
 
-        if(ram<512) {
-            ram = 512;
-        }
-        if(new FabricInstaller().download(minecraftVersion,fabricVersion,instancePath)) {
-            NoFramework framework = new NoFramework(
-                    instancePath,
-                    authInfos,
-                    GameFolder.FLOW_UPDATER
-            );
-            framework.getAdditionalVmArgs().add("-Xms512M");
-            framework.getAdditionalVmArgs().add("-Xmx" + ram + "M");
-            if(OperatingSystem.getType() == OperatingSystem.Type.macOS) {
-                framework.getAdditionalVmArgs().add("-XstartOnFirstThread");
+            if (ram < 512) {
+                ram = 512;
             }
-            try {
-                Process game = framework.launch(minecraftVersion, fabricVersion, NoFramework.ModLoader.FABRIC);
-                if(postLaunchHook != null) {
-                    postLaunchHook.run();
+            if (new FabricInstaller().download(minecraftVersion, fabricVersion, instancePath)) {
+                framework = new NoFramework(
+                        instancePath,
+                        authInfos,
+                        GameFolder.FLOW_UPDATER
+                );
+                framework.getAdditionalVmArgs().add("-Xms512M");
+                framework.getAdditionalVmArgs().add("-Xmx" + ram + "M");
+                if (OperatingSystem.getType() == OperatingSystem.Type.macOS) {
+                    framework.getAdditionalVmArgs().add("-XstartOnFirstThread");
                 }
-                game.onExit().thenRun(() -> {
-                    if(gameCloseHook != null) {
-                        gameCloseHook.run();
+                try {
+                    gameProcess = framework.launch(minecraftVersion, fabricVersion, NoFramework.ModLoader.FABRIC);
+                    if (getPostLaunchHook() != null) {
+                        getPostLaunchHook().run();
                     }
-                });
-            } catch (Exception e) {
-                NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Fabric "+fabricVersion+" for Minecraft "+minecraftVersion+" in "+instancePath+" with "+ram+"M RAM.");
-                throw new RuntimeException(e);
+                    gameProcess.onExit().thenRun(() -> {
+                        if (getGameCloseHook() != null) {
+                            getGameCloseHook().run();
+                        }
+                    });
+                } catch (Exception e) {
+                    NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Fabric " + fabricVersion + " for Minecraft " + minecraftVersion + " in " + instancePath + " with " + ram + "M RAM.");
+                    throw new RuntimeException(e);
+                }
+            } else {
+                NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Fabric " + fabricVersion + " for Minecraft " + minecraftVersion + " in " + instancePath + " with " + ram + "M RAM.");
             }
-        } else {
-            NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Fabric "+fabricVersion+" for Minecraft "+minecraftVersion+" in "+instancePath+" with "+ram+"M RAM.");
         }
+    }
+
+    @Override
+    public Process getGameProcess() {
+        return gameProcess;
+    }
+
+    @Override
+    public NoFramework getFramework() {
+        return framework;
+    }
+
+    @Override
+    public boolean isLaunched() {
+        return launched;
     }
 }

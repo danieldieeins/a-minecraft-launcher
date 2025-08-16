@@ -12,35 +12,11 @@ import net.nrfy.nexus.launcher.utils.MinecraftVersion;
 
 import java.nio.file.Path;
 
-public class ForgeLauncher {
+public class ForgeLauncher extends MinecraftLauncher {
 
-    private LauncherHook preLaunchHook;
-    private LauncherHook postLaunchHook;
-    private LauncherHook gameCloseHook;
-
-    public void setGameCloseHook(LauncherHook gameCloseHook) {
-        this.gameCloseHook = gameCloseHook;
-    }
-
-    public void setPostLaunchHook(LauncherHook postLaunchHook) {
-        this.postLaunchHook = postLaunchHook;
-    }
-
-    public void setPreLaunchHook(LauncherHook preLaunchHook) {
-        this.preLaunchHook = preLaunchHook;
-    }
-
-    public LauncherHook getGameCloseHook() {
-        return gameCloseHook;
-    }
-
-    public LauncherHook getPostLaunchHook() {
-        return postLaunchHook;
-    }
-
-    public LauncherHook getPreLaunchHook() {
-        return preLaunchHook;
-    }
+    private Process gameProcess;
+    private NoFramework framework;
+    private boolean launched = false;
 
     public void launch(WritableInstance instance, AuthInfos authInfos) {
         WritableInstance updatedInstance = ZyndexIntegration.update(instance);
@@ -53,53 +29,70 @@ public class ForgeLauncher {
     }
 
     public void launch(String minecraftVersion, String forgeVersion, int ram, Path instancePath, String id, AuthInfos authInfos) {
-        if(preLaunchHook != null) {
-            preLaunchHook.run();
-        }
-
-        if(ram<512) {
-            ram = 512;
-        }
-
-        if(new ForgeInstaller().download(minecraftVersion,forgeVersion,instancePath)) {
-
-            NoFramework.ModLoader forge;
-            forge = NoFramework.ModLoader.FORGE;
-            NoFramework framework = new NoFramework(
-                    instancePath,
-                    authInfos,
-                    GameFolder.FLOW_UPDATER
-            );
-            if(MinecraftVersion.getForgeType(minecraftVersion) == MinecraftVersion.ForgeType.NEW) {
-                forgeVersion = forgeVersion.replace(minecraftVersion + "-", "");
-            } else {
-                framework.setCustomModLoaderJsonFileName(minecraftVersion + "-forge"+forgeVersion+".json");
+        if(!launched) {
+            launched = true;
+            if (getPreLaunchHook() != null) {
+                getPreLaunchHook().run();
             }
-            if(minecraftVersion.equals("1.7.10")) {
-                forgeVersion = forgeVersion.replace(minecraftVersion+"-","");
-                framework.setCustomModLoaderJsonFileName("1.7.10-Forge" + forgeVersion + ".json");
+
+            if (ram < 512) {
+                ram = 512;
             }
-            framework.getAdditionalVmArgs().add("-Xms"+ ram +"M");
-            framework.getAdditionalVmArgs().add("-Xmx" + ram + "M");
-            if(OperatingSystem.getType() == OperatingSystem.Type.macOS) {
-                framework.getAdditionalVmArgs().add("-XstartOnFirstThread");
-            }
-            try {
-                Process game = framework.launch(minecraftVersion, forgeVersion, forge);
-                if(postLaunchHook != null) {
-                    postLaunchHook.run();
+
+            if (new ForgeInstaller().download(minecraftVersion, forgeVersion, instancePath)) {
+                NoFramework.ModLoader forge;
+                forge = NoFramework.ModLoader.FORGE;
+                framework = new NoFramework(
+                        instancePath,
+                        authInfos,
+                        GameFolder.FLOW_UPDATER
+                );
+                if (MinecraftVersion.getForgeType(minecraftVersion) == MinecraftVersion.ForgeType.NEW) {
+                    forgeVersion = forgeVersion.replace(minecraftVersion + "-", "");
+                } else {
+                    framework.setCustomModLoaderJsonFileName(minecraftVersion + "-forge" + forgeVersion + ".json");
                 }
-                game.onExit().thenRun(()->{
-                    if(gameCloseHook != null) {
-                        gameCloseHook.run();
+                if (minecraftVersion.equals("1.7.10")) {
+                    forgeVersion = forgeVersion.replace(minecraftVersion + "-", "");
+                    framework.setCustomModLoaderJsonFileName("1.7.10-Forge" + forgeVersion + ".json");
+                }
+                framework.getAdditionalVmArgs().add("-Xms" + ram + "M");
+                framework.getAdditionalVmArgs().add("-Xmx" + ram + "M");
+                if (OperatingSystem.getType() == OperatingSystem.Type.macOS) {
+                    framework.getAdditionalVmArgs().add("-XstartOnFirstThread");
+                }
+                try {
+                    gameProcess = framework.launch(minecraftVersion, forgeVersion, forge);
+                    if (getPostLaunchHook() != null) {
+                        getPostLaunchHook().run();
                     }
-                });
-            } catch (Exception e) {
-                NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Forge "+forgeVersion+" for Minecraft "+minecraftVersion+" in "+instancePath+" with "+ram+"M RAM");
-                throw new RuntimeException(e);
+                    gameProcess.onExit().thenRun(() -> {
+                        if (getGameCloseHook() != null) {
+                            getGameCloseHook().run();
+                        }
+                    });
+                } catch (Exception e) {
+                    NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Forge " + forgeVersion + " for Minecraft " + minecraftVersion + " in " + instancePath + " with " + ram + "M RAM");
+                    throw new RuntimeException(e);
+                }
+            } else {
+                NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Forge " + forgeVersion + " for Minecraft " + minecraftVersion + " in " + instancePath + " with " + ram + "M RAM");
             }
-        } else {
-            NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Forge "+forgeVersion+" for Minecraft "+minecraftVersion+" in "+instancePath+" with "+ram+"M RAM");
         }
+    }
+
+    @Override
+    public Process getGameProcess() {
+        return gameProcess;
+    }
+
+    @Override
+    public NoFramework getFramework() {
+        return framework;
+    }
+
+    @Override
+    public boolean isLaunched() {
+        return launched;
     }
 }
