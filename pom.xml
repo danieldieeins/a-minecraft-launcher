@@ -4,13 +4,110 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.zyneonstudios</groupId>
-    <artifactId>application-parent</artifactId>
+    <groupId>net.nrfy.nexus</groupId>
+    <artifactId>a-minecraft-launcher-libs</artifactId>
     <version>2025.5</version>
-    <packaging>pom</packaging>
-    <name>NEXUS App</name>
 
-    <modules>
-        <module>application-main</module>
-    </modules>
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>nerofy-releases</id>
+            <name>Nerofy repository</name>
+            <url>https://maven.nrfy.net/releases</url>
+        </repository>
+        <repository>
+            <id>nerofy-snapshots</id>
+            <name>Nerofy repository</name>
+            <url>https://maven.nrfy.net/snapshots</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!--Dependencies by Zyneon Studios' NEXUS Team-->
+        <dependency>
+            <groupId>com.zyneonstudios.nexus</groupId>
+            <artifactId>zyndex-java</artifactId>
+            <version>2025.5.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zyneonstudios.nexus</groupId>
+            <artifactId>verget-all</artifactId>
+            <version>2024.8.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zyneonstudios.nexus</groupId>
+            <artifactId>base-utilities</artifactId>
+            <version>2025.5.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--Dependencies by FlowArg-->
+        <dependency>
+            <groupId>fr.flowarg</groupId>
+            <artifactId>flowupdater</artifactId>
+            <version>1.9.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>fr.flowarg</groupId>
+            <artifactId>openlauncherlib</artifactId>
+            <version>3.2.11</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <release>21</release>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
