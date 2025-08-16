@@ -13,6 +13,34 @@ import java.nio.file.Path;
 
 public class QuiltLauncher {
 
+    private LauncherHook preLaunchHook;
+    private LauncherHook postLaunchHook;
+    private LauncherHook gameCloseHook;
+
+    public void setGameCloseHook(LauncherHook gameCloseHook) {
+        this.gameCloseHook = gameCloseHook;
+    }
+
+    public void setPostLaunchHook(LauncherHook postLaunchHook) {
+        this.postLaunchHook = postLaunchHook;
+    }
+
+    public void setPreLaunchHook(LauncherHook preLaunchHook) {
+        this.preLaunchHook = preLaunchHook;
+    }
+
+    public LauncherHook getGameCloseHook() {
+        return gameCloseHook;
+    }
+
+    public LauncherHook getPostLaunchHook() {
+        return postLaunchHook;
+    }
+
+    public LauncherHook getPreLaunchHook() {
+        return preLaunchHook;
+    }
+
     public void launch(WritableInstance instance, AuthInfos authInfos) {
         WritableInstance updatedInstance = ZyndexIntegration.update(instance);
         if(updatedInstance!=null) {
@@ -24,6 +52,10 @@ public class QuiltLauncher {
     }
 
     public void launch(String minecraftVersion, String quiltVersion, int ram, Path instancePath, String id, AuthInfos authInfos) {
+        if(preLaunchHook != null) {
+            preLaunchHook.run();
+        }
+
         if(ram<512) {
             ram = 512;
         }
@@ -40,8 +72,13 @@ public class QuiltLauncher {
             }
             try {
                 Process game = framework.launch(minecraftVersion, quiltVersion, NoFramework.ModLoader.QUILT);
+                if(postLaunchHook != null) {
+                    postLaunchHook.run();
+                }
                 game.onExit().thenRun(() -> {
-
+                    if(gameCloseHook != null) {
+                        gameCloseHook.run();
+                    }
                 });
             } catch (Exception e) {
                 NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Quilt "+quiltVersion+" for Minecraft "+minecraftVersion+" in "+instancePath+" with "+ram+"M RAM.");
