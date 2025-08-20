@@ -16,7 +16,7 @@ import fr.flowarg.flowupdater.integrations.curseforgeintegration.CurseForgeInteg
 import fr.flowarg.flowupdater.integrations.curseforgeintegration.CurseModPack;
 import fr.flowarg.flowupdater.utils.IOUtils;
 import fr.flowarg.openlauncherlib.NoFramework;
-import net.nrfy.nexus.launcher.integrations.zyndex.ZyndexIntegration;
+import net.nrfy.nexus.launcher.integrations.zyndex.ZZyndexIntegration;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -181,7 +181,7 @@ public class ZCurseForgeIntegration extends CurseForgeIntegration {
                     description = curseforge.getString("description");
                 }
                 instance.set("modpack.description",description);
-                ZyndexIntegration.convert(instance.getJsonFile());
+                ZZyndexIntegration.convert(instance.getJsonFile());
                 logger.log("[CURSEFORGE] (INTEGRATION) Successfully built zyneonInstance file!");
                 logger.log("[CURSEFORGE] (INTEGRATION) Installed CurseForge modpack "+packName+" v"+packVersion+"!");
             } catch (Exception e) {

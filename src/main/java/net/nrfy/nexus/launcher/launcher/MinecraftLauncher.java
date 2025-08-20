@@ -1,7 +1,7 @@
 package net.nrfy.nexus.launcher.launcher;
 
 import fr.flowarg.openlauncherlib.NoFramework;
-import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableInstance;
+import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableZInstance;
 
 public abstract class MinecraftLauncher {
 
@@ -33,7 +33,7 @@ public abstract class MinecraftLauncher {
         return preLaunchHook;
     }
 
-    public WritableInstance getInstance() {
+    public WritableZInstance getInstance() {
         return null;
     }
 

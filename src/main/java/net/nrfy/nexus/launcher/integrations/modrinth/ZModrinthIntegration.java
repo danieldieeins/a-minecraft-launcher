@@ -8,7 +8,7 @@ import fr.flowarg.flowupdater.download.json.Mod;
 import net.nrfy.nexus.launcher.integrations.modrinth.flowarg.ModrinthIntegration;
 import net.nrfy.nexus.launcher.integrations.modrinth.flowarg.ModrinthModPack;
 import net.nrfy.nexus.launcher.integrations.modrinth.flowarg.ModrinthModPackInfo;
-import net.nrfy.nexus.launcher.integrations.zyndex.ZyndexIntegration;
+import net.nrfy.nexus.launcher.integrations.zyndex.ZZyndexIntegration;
 
 import java.io.File;
 import java.net.URLDecoder;
@@ -121,7 +121,7 @@ public class ZModrinthIntegration extends ModrinthIntegration {
                         instance.set("modpack.logo", URLDecoder.decode(logo.getAbsolutePath(), StandardCharsets.UTF_8).replace("\\","/"));
                     }
                 } catch (Exception ignore) {}
-                ZyndexIntegration.convert(instance.getJsonFile());
+                ZZyndexIntegration.convert(instance.getJsonFile());
                 logger.log("[MODRINTH] (INTEGRATION) Successfully built zyneonInstance file!");
                 logger.log("[MODRINTH] (INTEGRATION) Installed modrinth modpack "+packName+" v"+packVersion+"!");
             } catch (Exception e) {

@@ -4,11 +4,11 @@ import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
 
 import java.io.File;
 
-public class InstanceSettings extends JsonStorage {
+public class ZInstanceSettings extends JsonStorage {
 
     private int memory = 1024;
 
-    public InstanceSettings(Instance instance) {
+    public ZInstanceSettings(ZInstance instance) {
         super(new File(instance.getPath()+"meta/instanceSettings.json"));
         if(get("settings.memory")!=null) {
             memory = getInt("settings.memory");

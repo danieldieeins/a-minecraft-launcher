@@ -7,14 +7,14 @@ import com.zyneonstudios.nexus.utilities.file.FileActions;
 import com.zyneonstudios.nexus.utilities.file.FileExtractor;
 import com.zyneonstudios.nexus.utilities.file.FileGetter;
 import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
-import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableInstance;
+import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableZInstance;
 
 import java.io.File;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class ZyndexIntegration {
+public class ZZyndexIntegration {
 
     public static boolean install(ReadableZynstance onlineInstance, String path) {
         try {
@@ -34,7 +34,7 @@ public class ZyndexIntegration {
             String url = onlineInstance.getLocation();
             File instanceDirectory = new File(path);
             NexusUtilities.getLogger().deb("[CONNECTOR] Created instance path: " + instanceDirectory.mkdirs());
-            WritableInstance instance = new WritableInstance(FileGetter.downloadFile(url, URLDecoder.decode(instanceDirectory.getAbsolutePath() + "/zyneonInstance.json", StandardCharsets.UTF_8)));
+            WritableZInstance instance = new WritableZInstance(FileGetter.downloadFile(url, URLDecoder.decode(instanceDirectory.getAbsolutePath() + "/zyneonInstance.json", StandardCharsets.UTF_8)));
             instance.setId(id);
             return true;
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class ZyndexIntegration {
         }
     }
 
-    public static WritableInstance update(WritableInstance localInstance) {
+    public static WritableZInstance update(WritableZInstance localInstance) {
         try {
             ReadableZynstance onlineInstance;
             if(!localInstance.getLocation().startsWith("http")) {
@@ -105,7 +105,7 @@ public class ZyndexIntegration {
                         }
                         NexusUtilities.getLogger().log("[ZYNDEX] Updating json file...");
                         String url = onlineInstance.getLocation();
-                        localInstance = new WritableInstance(FileGetter.downloadFile(url, path + "/zyneonInstance.json"));
+                        localInstance = new WritableZInstance(FileGetter.downloadFile(url, path + "/zyneonInstance.json"));
                         NexusUtilities.getLogger().log("[ZYNDEX] Updated json file!");
                         NexusUtilities.getLogger().log("[ZYNDEX] Downloading new pack file...");
                         pack = FileGetter.downloadFile(onlineInstance.getDownloadUrl(), path + "meta/pack.zip");
@@ -132,7 +132,7 @@ public class ZyndexIntegration {
                         }
 
                         if(onlineInstance.getBackgroundUrl()!=null||onlineInstance.getIconUrl()!=null||onlineInstance.getLogoUrl()!=null||onlineInstance.getThumbnailUrl()!=null) {
-                            WritableInstance writableInstance = new WritableInstance(localInstance.getFile());
+                            WritableZInstance writableInstance = new WritableZInstance(localInstance.getFile());
                             if(onlineInstance.getBackgroundUrl()!=null) {
                                 NexusUtilities.getLogger().log("[ZYNDEX] Downloading background...!");
                                 File background = FileGetter.downloadFile(onlineInstance.getBackgroundUrl(), path + "meta/background.png");

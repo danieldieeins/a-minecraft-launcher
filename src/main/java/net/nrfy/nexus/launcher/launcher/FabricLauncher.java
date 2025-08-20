@@ -6,8 +6,8 @@ import fr.flowarg.openlauncherlib.NoFramework;
 import fr.theshark34.openlauncherlib.minecraft.AuthInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;
 import net.nrfy.nexus.launcher.installer.FabricInstaller;
-import net.nrfy.nexus.launcher.integrations.zyndex.ZyndexIntegration;
-import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableInstance;
+import net.nrfy.nexus.launcher.integrations.zyndex.ZZyndexIntegration;
+import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableZInstance;
 
 import java.nio.file.Path;
 
@@ -17,7 +17,7 @@ public class FabricLauncher extends MinecraftLauncher {
     private NoFramework framework;
     private boolean launched = false;
 
-    private WritableInstance instance = null;
+    private WritableZInstance instance = null;
 
     private AuthInfos authInfos;
     public FabricLauncher(AuthInfos authInfos) {
@@ -28,9 +28,9 @@ public class FabricLauncher extends MinecraftLauncher {
         this.authInfos = authInfos;
     }
 
-    public void launch(WritableInstance instance) {
+    public void launch(WritableZInstance instance) {
         this.instance = instance;
-        WritableInstance updatedInstance = ZyndexIntegration.update(instance);
+        WritableZInstance updatedInstance = ZZyndexIntegration.update(instance);
         if(updatedInstance!=null) {
             launch(updatedInstance.getMinecraftVersion(), updatedInstance.getFabricVersion(), updatedInstance.getSettings().getMemory(), Path.of(updatedInstance.getPath()),updatedInstance.getId());
         } else {
@@ -96,7 +96,7 @@ public class FabricLauncher extends MinecraftLauncher {
     }
 
     @Override
-    public WritableInstance getInstance() {
+    public WritableZInstance getInstance() {
         return instance;
     }
 }

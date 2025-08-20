@@ -1,14 +1,14 @@
 package net.nrfy.nexus.launcher.launcher;
 
+import com.zyneonstudios.nexus.Main;
 import com.zyneonstudios.nexus.utilities.NexusUtilities;
 import com.zyneonstudios.nexus.utilities.system.OperatingSystem;
 import fr.flowarg.openlauncherlib.NoFramework;
 import fr.theshark34.openlauncherlib.minecraft.AuthInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;
 import net.nrfy.nexus.launcher.installer.ForgeInstaller;
-import net.nrfy.nexus.launcher.integrations.zyndex.ZyndexIntegration;
-import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableInstance;
-import net.nrfy.nexus.launcher.utils.MinecraftVersion;
+import net.nrfy.nexus.launcher.integrations.zyndex.ZZyndexIntegration;
+import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableZInstance;
 
 import java.nio.file.Path;
 
@@ -18,7 +18,7 @@ public class ForgeLauncher extends MinecraftLauncher {
     private NoFramework framework;
     private boolean launched = false;
 
-    private WritableInstance instance = null;
+    private WritableZInstance instance = null;
 
     private AuthInfos authInfos;
     public ForgeLauncher(AuthInfos authInfos) {
@@ -29,9 +29,9 @@ public class ForgeLauncher extends MinecraftLauncher {
         this.authInfos = authInfos;
     }
 
-    public void launch(WritableInstance instance) {
+    public void launch(WritableZInstance instance) {
         this.instance = instance;
-        WritableInstance updatedInstance = ZyndexIntegration.update(instance);
+        WritableZInstance updatedInstance = ZZyndexIntegration.update(instance);
         if(updatedInstance!=null) {
             launch(updatedInstance.getMinecraftVersion(), updatedInstance.getForgeVersion(), updatedInstance.getSettings().getMemory(), Path.of(updatedInstance.getPath()),updatedInstance.getId());
         } else {
@@ -59,7 +59,7 @@ public class ForgeLauncher extends MinecraftLauncher {
                         authInfos,
                         GameFolder.FLOW_UPDATER
                 );
-                if (MinecraftVersion.getForgeType(minecraftVersion) == MinecraftVersion.ForgeType.NEW) {
+                if (getForgeType(minecraftVersion) == ForgeType.NEW) {
                     forgeVersion = forgeVersion.replace(minecraftVersion + "-", "");
                 } else {
                     framework.setCustomModLoaderJsonFileName(minecraftVersion + "-forge" + forgeVersion + ".json");
@@ -109,7 +109,28 @@ public class ForgeLauncher extends MinecraftLauncher {
     }
 
     @Override
-    public WritableInstance getInstance() {
+    public WritableZInstance getInstance() {
         return instance;
+    }
+
+    private ForgeType getForgeType(String mcVersion) {
+        if(mcVersion.contains(".")) {
+            try {
+                int i = Integer.parseInt(mcVersion.split("\\.")[1]);
+                if (i < 12) {
+                    return ForgeType.OLD;
+                } else {
+                    return ForgeType.NEW;
+                }
+            } catch (Exception e) {
+                Main.logger.err("[SYSTEM] Couldn't resolve Minecraft version "+mcVersion+": "+e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    public enum ForgeType {
+        OLD,
+        NEW
     }
 }

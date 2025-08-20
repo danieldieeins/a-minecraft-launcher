@@ -4,18 +4,18 @@ import com.zyneonstudios.nexus.instance.ReadableZynstance;
 
 import java.io.File;
 
-public class ReadableInstance extends ReadableZynstance implements Instance {
+public class ReadableZInstance extends ReadableZynstance implements ZInstance {
 
     private File file;
     private String path;
-    private InstanceSettings settings;
+    private ZInstanceSettings settings;
 
-    public ReadableInstance(File file) {
+    public ReadableZInstance(File file) {
         super(file);
         init(file);
     }
 
-    public ReadableInstance(String path) {
+    public ReadableZInstance(String path) {
         super(new File(path));
         init(new File(path));
     }
@@ -23,7 +23,7 @@ public class ReadableInstance extends ReadableZynstance implements Instance {
     private void init(File file) {
         this.file = file;
         this.path = file.getParent()+"/";
-        this.settings = new InstanceSettings(this);
+        this.settings = new ZInstanceSettings(this);
     }
 
     @Override
@@ -37,12 +37,12 @@ public class ReadableInstance extends ReadableZynstance implements Instance {
     }
 
     @Override
-    public InstanceSettings getSettings() {
+    public ZInstanceSettings getSettings() {
         return this.settings;
     }
 
     @Override
-    public void setSettings(InstanceSettings settings) {
+    public void setSettings(ZInstanceSettings settings) {
         this.settings = settings;
     }
 }

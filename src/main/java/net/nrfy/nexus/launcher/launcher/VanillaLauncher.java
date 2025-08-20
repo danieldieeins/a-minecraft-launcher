@@ -6,8 +6,8 @@ import fr.flowarg.openlauncherlib.NoFramework;
 import fr.theshark34.openlauncherlib.minecraft.AuthInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;
 import net.nrfy.nexus.launcher.installer.VanillaInstaller;
-import net.nrfy.nexus.launcher.integrations.zyndex.ZyndexIntegration;
-import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableInstance;
+import net.nrfy.nexus.launcher.integrations.zyndex.ZZyndexIntegration;
+import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableZInstance;
 
 import java.nio.file.Path;
 
@@ -17,7 +17,7 @@ public class VanillaLauncher extends MinecraftLauncher {
     private NoFramework framework;
     private boolean launched = false;
 
-    private WritableInstance instance = null;
+    private WritableZInstance instance = null;
 
     private AuthInfos authInfos;
     public VanillaLauncher(AuthInfos authInfos) {
@@ -28,9 +28,9 @@ public class VanillaLauncher extends MinecraftLauncher {
         this.authInfos = authInfos;
     }
 
-    public void launch(WritableInstance instance) {
+    public void launch(WritableZInstance instance) {
         this.instance = instance;
-        ZyndexIntegration.update(instance);
+        ZZyndexIntegration.update(instance);
         launch(instance.getMinecraftVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId());
     }
 
@@ -92,7 +92,7 @@ public class VanillaLauncher extends MinecraftLauncher {
     }
 
     @Override
-    public WritableInstance getInstance() {
+    public WritableZInstance getInstance() {
         return instance;
     }
 }

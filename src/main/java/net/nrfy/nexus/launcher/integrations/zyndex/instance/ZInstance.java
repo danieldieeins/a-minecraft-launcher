@@ -2,7 +2,7 @@ package net.nrfy.nexus.launcher.integrations.zyndex.instance;
 
 import java.io.File;
 
-public interface Instance extends com.zyneonstudios.nexus.instance.Instance {
+public interface ZInstance extends com.zyneonstudios.nexus.instance.Instance {
 
     default File getFile() {
         return null;
@@ -12,11 +12,11 @@ public interface Instance extends com.zyneonstudios.nexus.instance.Instance {
         return null;
     }
 
-    default InstanceSettings getSettings() {
+    default ZInstanceSettings getSettings() {
         return null;
     }
 
-    default void setSettings(InstanceSettings settings) {
+    default void setSettings(ZInstanceSettings settings) {
 
     }
 }
