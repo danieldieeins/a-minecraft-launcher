@@ -1,1 +1,0 @@
-package com.zyneonstudios.application.integrations.modrinth.flowarg;

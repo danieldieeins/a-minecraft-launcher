@@ -1,8 +1,0 @@
-Package: nexus-app
-Version: [[version]]
-Section: misc
-Priority: low
-Architecture: all
-Description: [[description]]
-Maintainer: Nerofy Nexus <daniel.niesmann@outlook.com>
-Depends: openjdk-21-jdk | openjdk-21-jre | jdk-21 | jre-21 | temurin-21
