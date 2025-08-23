@@ -1,1 +1,0 @@
-package net.nrfy.nexus.launcher.integrations.modrinth.flowarg;

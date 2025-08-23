@@ -5,9 +5,9 @@ import com.zyneonstudios.nexus.utilities.logger.NexusLogger;
 import com.zyneonstudios.nexus.utilities.storage.JsonStorage;
 import fr.flowarg.flowlogger.Logger;
 import fr.flowarg.flowupdater.download.json.Mod;
-import net.nrfy.nexus.launcher.integrations.modrinth.flowarg.ModrinthIntegration;
-import net.nrfy.nexus.launcher.integrations.modrinth.flowarg.ModrinthModPack;
-import net.nrfy.nexus.launcher.integrations.modrinth.flowarg.ModrinthModPackInfo;
+import fr.flowarg.flowupdater.download.json.ModrinthModPackInfo;
+import fr.flowarg.flowupdater.integrations.modrinthintegration.ModrinthIntegration;
+import fr.flowarg.flowupdater.integrations.modrinthintegration.ModrinthModPack;
 import net.nrfy.nexus.launcher.integrations.zyndex.ZZyndexIntegration;
 
 import java.io.File;
@@ -66,7 +66,7 @@ public class ZModrinthIntegration extends ModrinthIntegration {
                 logger.log("[MODRINTH] (INTEGRATION) Getting modpack info for version "+version+"...");
                 ModrinthModPackInfo info = new ModrinthModPackInfo(id,version,true);
                 logger.log("[MODRINTH] (INTEGRATION) Resolving "+id+"-"+version+"...");
-                ModrinthModPack pack = getModrinthModPack(info);
+                ModrinthModPack pack = getCurseModPack(info);
                 String packName = pack.getName();
                 String packVersion = pack.getVersion();
                 logger.log("[MODRINTH] (INTEGRATION) Resolved modpack "+packName+" v"+packVersion+"!");

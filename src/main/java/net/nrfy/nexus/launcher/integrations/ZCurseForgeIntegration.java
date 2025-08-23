@@ -1,4 +1,4 @@
-package net.nrfy.nexus.launcher.integrations.curseforge;
+package net.nrfy.nexus.launcher.integrations;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
