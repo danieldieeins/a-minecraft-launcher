@@ -1,4 +1,4 @@
-package net.nrfy.nexus.launcher.launcher;
+package live.nerotv.aminecraftlauncher.launcher;
 
 public abstract class LauncherHook {
 

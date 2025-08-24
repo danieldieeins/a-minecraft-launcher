@@ -1,14 +1,11 @@
-package net.nrfy.nexus.launcher.launcher;
+package live.nerotv.aminecraftlauncher.launcher;
 
-import com.zyneonstudios.nexus.Main;
 import com.zyneonstudios.nexus.utilities.NexusUtilities;
 import com.zyneonstudios.nexus.utilities.system.OperatingSystem;
 import fr.flowarg.openlauncherlib.NoFramework;
 import fr.theshark34.openlauncherlib.minecraft.AuthInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;
-import net.nrfy.nexus.launcher.installer.ForgeInstaller;
-import net.nrfy.nexus.launcher.integrations.zyndex.ZZyndexIntegration;
-import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableZInstance;
+import live.nerotv.aminecraftlauncher.installer.ForgeInstaller;
 
 import java.nio.file.Path;
 
@@ -18,8 +15,6 @@ public class ForgeLauncher extends MinecraftLauncher {
     private NoFramework framework;
     private boolean launched = false;
 
-    private WritableZInstance instance = null;
-
     private AuthInfos authInfos;
     public ForgeLauncher(AuthInfos authInfos) {
         this.authInfos = authInfos;
@@ -27,17 +22,6 @@ public class ForgeLauncher extends MinecraftLauncher {
 
     public void setAuthInfos(AuthInfos authInfos) {
         this.authInfos = authInfos;
-    }
-
-    public void launch(WritableZInstance instance) {
-        this.instance = instance;
-        WritableZInstance updatedInstance = ZZyndexIntegration.update(instance);
-        if(updatedInstance!=null) {
-            launch(updatedInstance.getMinecraftVersion(), updatedInstance.getForgeVersion(), updatedInstance.getSettings().getMemory(), Path.of(updatedInstance.getPath()),updatedInstance.getId());
-        } else {
-            launch(instance.getMinecraftVersion(), instance.getForgeVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId());
-        }
-        System.gc();
     }
 
     public void launch(String minecraftVersion, String forgeVersion, int ram, Path instancePath, String id) {
@@ -51,7 +35,7 @@ public class ForgeLauncher extends MinecraftLauncher {
                 ram = 512;
             }
 
-            if (new ForgeInstaller().download(minecraftVersion, forgeVersion, instancePath)) {
+            if (new ForgeInstaller(minecraftVersion, forgeVersion, instancePath).install()) {
                 NoFramework.ModLoader forge;
                 forge = NoFramework.ModLoader.FORGE;
                 framework = new NoFramework(
@@ -108,11 +92,6 @@ public class ForgeLauncher extends MinecraftLauncher {
         return launched;
     }
 
-    @Override
-    public WritableZInstance getInstance() {
-        return instance;
-    }
-
     private ForgeType getForgeType(String mcVersion) {
         if(mcVersion.contains(".")) {
             try {
@@ -123,7 +102,7 @@ public class ForgeLauncher extends MinecraftLauncher {
                     return ForgeType.NEW;
                 }
             } catch (Exception e) {
-                Main.logger.err("[SYSTEM] Couldn't resolve Minecraft version "+mcVersion+": "+e.getMessage());
+                NexusUtilities.getLogger().err("Couldn't determine Forge type for Minecraft version " + mcVersion+": "+ e.getMessage());
             }
         }
         return null;

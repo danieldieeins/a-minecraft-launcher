@@ -1,7 +1,6 @@
-package net.nrfy.nexus.launcher.launcher;
+package live.nerotv.aminecraftlauncher.launcher;
 
 import fr.flowarg.openlauncherlib.NoFramework;
-import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableZInstance;
 
 public abstract class MinecraftLauncher {
 
@@ -31,10 +30,6 @@ public abstract class MinecraftLauncher {
 
     public LauncherHook getPreLaunchHook() {
         return preLaunchHook;
-    }
-
-    public WritableZInstance getInstance() {
-        return null;
     }
 
     public abstract Process getGameProcess();

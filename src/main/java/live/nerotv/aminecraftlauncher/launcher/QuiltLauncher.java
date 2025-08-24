@@ -1,26 +1,22 @@
-package net.nrfy.nexus.launcher.launcher;
+package live.nerotv.aminecraftlauncher.launcher;
 
 import com.zyneonstudios.nexus.utilities.NexusUtilities;
 import com.zyneonstudios.nexus.utilities.system.OperatingSystem;
 import fr.flowarg.openlauncherlib.NoFramework;
 import fr.theshark34.openlauncherlib.minecraft.AuthInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;
-import net.nrfy.nexus.launcher.installer.VanillaInstaller;
-import net.nrfy.nexus.launcher.integrations.zyndex.ZZyndexIntegration;
-import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableZInstance;
+import live.nerotv.aminecraftlauncher.installer.QuiltInstaller;
 
 import java.nio.file.Path;
 
-public class VanillaLauncher extends MinecraftLauncher {
+public class QuiltLauncher extends MinecraftLauncher {
 
     private Process gameProcess;
     private NoFramework framework;
     private boolean launched = false;
 
-    private WritableZInstance instance = null;
-
     private AuthInfos authInfos;
-    public VanillaLauncher(AuthInfos authInfos) {
+    public QuiltLauncher(AuthInfos authInfos) {
         this.authInfos = authInfos;
     }
 
@@ -28,13 +24,7 @@ public class VanillaLauncher extends MinecraftLauncher {
         this.authInfos = authInfos;
     }
 
-    public void launch(WritableZInstance instance) {
-        this.instance = instance;
-        ZZyndexIntegration.update(instance);
-        launch(instance.getMinecraftVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId());
-    }
-
-    public void launch(String version, int ram, Path instancePath, String id) {
+    public void launch(String minecraftVersion, String quiltVersion, int ram, Path instancePath, String id) {
         if(!launched) {
             launched = true;
 
@@ -45,19 +35,19 @@ public class VanillaLauncher extends MinecraftLauncher {
             if (ram < 512) {
                 ram = 512;
             }
-            if (new VanillaInstaller().download(version, instancePath)) {
+            if (new QuiltInstaller(minecraftVersion, quiltVersion, instancePath).install()) {
                 framework = new NoFramework(
                         instancePath,
                         authInfos,
                         GameFolder.FLOW_UPDATER
                 );
                 framework.getAdditionalVmArgs().add("-Xms512M");
-                framework.getAdditionalVmArgs().add("-Xmx4096M");
+                framework.getAdditionalVmArgs().add("-Xmx" + ram + "M");
                 if (OperatingSystem.getType() == OperatingSystem.Type.macOS) {
                     framework.getAdditionalVmArgs().add("-XstartOnFirstThread");
                 }
                 try {
-                    gameProcess = framework.launch(version, "", NoFramework.ModLoader.VANILLA);
+                    gameProcess = framework.launch(minecraftVersion, quiltVersion, NoFramework.ModLoader.QUILT);
                     if (getPostLaunchHook() != null) {
                         getPostLaunchHook().run();
                     }
@@ -67,11 +57,11 @@ public class VanillaLauncher extends MinecraftLauncher {
                         }
                     });
                 } catch (Exception e) {
-                    NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Minecraft Vanilla " + version + " in " + instancePath + " with " + ram + "M RAM");
+                    NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Quilt " + quiltVersion + " for Minecraft " + minecraftVersion + " in " + instancePath + " with " + ram + "M RAM.");
                     throw new RuntimeException(e);
                 }
             } else {
-                NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Minecraft Vanilla " + version + " in " + instancePath + " with " + ram + "M RAM");
+                NexusUtilities.getLogger().err("[LAUNCHER] Couldn't start Quilt " + quiltVersion + " for Minecraft " + minecraftVersion + " in " + instancePath + " with " + ram + "M RAM.");
             }
         }
     }
@@ -89,10 +79,5 @@ public class VanillaLauncher extends MinecraftLauncher {
     @Override
     public boolean isLaunched() {
         return launched;
-    }
-
-    @Override
-    public WritableZInstance getInstance() {
-        return instance;
     }
 }

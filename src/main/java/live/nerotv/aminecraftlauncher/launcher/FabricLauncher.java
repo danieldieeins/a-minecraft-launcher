@@ -1,13 +1,11 @@
-package net.nrfy.nexus.launcher.launcher;
+package live.nerotv.aminecraftlauncher.launcher;
 
 import com.zyneonstudios.nexus.utilities.NexusUtilities;
 import com.zyneonstudios.nexus.utilities.system.OperatingSystem;
 import fr.flowarg.openlauncherlib.NoFramework;
 import fr.theshark34.openlauncherlib.minecraft.AuthInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;
-import net.nrfy.nexus.launcher.installer.FabricInstaller;
-import net.nrfy.nexus.launcher.integrations.zyndex.ZZyndexIntegration;
-import net.nrfy.nexus.launcher.integrations.zyndex.instance.WritableZInstance;
+import live.nerotv.aminecraftlauncher.installer.FabricInstaller;
 
 import java.nio.file.Path;
 
@@ -17,8 +15,6 @@ public class FabricLauncher extends MinecraftLauncher {
     private NoFramework framework;
     private boolean launched = false;
 
-    private WritableZInstance instance = null;
-
     private AuthInfos authInfos;
     public FabricLauncher(AuthInfos authInfos) {
         this.authInfos = authInfos;
@@ -26,17 +22,6 @@ public class FabricLauncher extends MinecraftLauncher {
 
     public void setAuthInfos(AuthInfos authInfos) {
         this.authInfos = authInfos;
-    }
-
-    public void launch(WritableZInstance instance) {
-        this.instance = instance;
-        WritableZInstance updatedInstance = ZZyndexIntegration.update(instance);
-        if(updatedInstance!=null) {
-            launch(updatedInstance.getMinecraftVersion(), updatedInstance.getFabricVersion(), updatedInstance.getSettings().getMemory(), Path.of(updatedInstance.getPath()),updatedInstance.getId());
-        } else {
-            launch(instance.getMinecraftVersion(), instance.getFabricVersion(), instance.getSettings().getMemory(), Path.of(instance.getPath()),instance.getId());
-        }
-        System.gc();
     }
 
     public void launch(String minecraftVersion, String fabricVersion, int ram, Path instancePath, String id) {
@@ -49,7 +34,7 @@ public class FabricLauncher extends MinecraftLauncher {
             if (ram < 512) {
                 ram = 512;
             }
-            if (new FabricInstaller().download(minecraftVersion, fabricVersion, instancePath)) {
+            if (new FabricInstaller(minecraftVersion, fabricVersion, instancePath).install()) {
                 framework = new NoFramework(
                         instancePath,
                         authInfos,
@@ -93,10 +78,5 @@ public class FabricLauncher extends MinecraftLauncher {
     @Override
     public boolean isLaunched() {
         return launched;
-    }
-
-    @Override
-    public WritableZInstance getInstance() {
-        return instance;
     }
 }
