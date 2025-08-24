@@ -129,10 +129,10 @@ If you want to use other modloaders than Fabric, just try to replace "Fabric" wi
 //Vanilla
 VanillaLauncher launcher = new VanillaLauncher(authInfos);
 //Minecraft 1.21.8 with 4GB (4096MB) of memory in the .minecraft folder with the ID "a-minecraft-installation"
-launcher.launch("1.21.8",4096,Path.of(".minecraft","a-minecraft-installation"));
+launcher.launch("1.21.8",4096,Path.of(".minecraft"),"a-minecraft-installation"));
 
 //Fabric
 FabricLauncher fabricLauncher = new FabricLauncher(authInfos);
 //Minecraft 1.21.8 with Fabric 0.17.2 with 4GB (4096MB) of memory in the .minecraft-fabric folder with the ID "a-minecraft-fabric-installation"
-fabricLauncher.launch("1.21.8","0.17.2","4096",".minecraft-fabric","a-minecraft-fabric-installation");
+fabricLauncher.launch("1.21.8","0.17.2","4096",Path.of(".minecraft-fabric"),"a-minecraft-fabric-installation");
 ```
