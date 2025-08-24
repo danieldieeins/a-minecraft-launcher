@@ -112,7 +112,7 @@ if(new FabricInstaller("1.16.5","0.16.3",".minecraft-fabric").install()) {
 FabricInstaller installer = new FabricInstaller();
 installer.setMinecraftVersion("1.21.8");
 installer.setFabricVersion("0.17.2");
-installer.setInstallationPath(".minecraft"); //or use a path installer.setInstallationPath(Path.of(".minecraft"));
+installer.setInstallationPath(".minecraft-fabric"); //or use a path installer.setInstallationPath(Path.of(".minecraft"));
 installer.install();
 ```
 
