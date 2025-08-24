@@ -125,7 +125,7 @@ If you want to use other modloaders than Fabric, just try to replace "Fabric" wi
 
 **Important¹:** You'll need a valid AuthInfos object to initialize the game launchers. For more information visit [OpenAuth](https://github.com/Litarvan/OpenAuth) by [Litarvan](https://github.com/Litarvan).
 
-```
+```java
 //Vanilla
 VanillaLauncher launcher = new VanillaLauncher(authInfos);
 //Minecraft 1.21.8 with 4GB (4096MB) of memory in the .minecraft folder with the ID "a-minecraft-installation"
